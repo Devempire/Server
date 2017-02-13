@@ -13,6 +13,7 @@ var app = express();
 var port = process.env.PORT || 8080;
 var userRoute = require('./controllers/routeUser.js');
 var profileRoute = require('./controllers/routeProfile.js');
+var widgetRoute = require('./controllers/routeWidget.js');
 
 //check cpu of ur computers and split the task
 if  (cluster.isMaster)  {
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'view'), {maxAge:86400000}));
  /** Routing Modules Configuration **/
 app.use('/login', userRoute);
 app.use('/profile/', profileRoute);
+app.use('/widget/', widgetRoute);
 app.get('/about/',function(req, res){if (!req.url.endsWith('/')) {res.redirect(301, req.url + '/')}res.sendFile('about.html', {root: "./view/"});});
 app.get('/team/', function(req, res){if (!req.url.endsWith('/')) {res.redirect(301, req.url + '/')}res.sendFile('team.html', {root: "./view/"});});
 app.get('/privacy/', function(req, res){if (!req.url.endsWith('/')) {res.redirect(301, req.url + '/')}res.sendFile('privacy.html', {root: "./view/"});});
