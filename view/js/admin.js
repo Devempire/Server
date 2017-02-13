@@ -13,5 +13,4 @@ $("#ok").click(function(){
         }).fail(function(res){
             console.log("something wrong");
         });
-
-    };
+    });

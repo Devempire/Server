@@ -20,7 +20,7 @@ router.get('/show', function (req, res, next) {
 });
 
 
-router.post('/widget/add', function (req, res, next)) {
+router.post('/add', function (req, res, next) {
 	Widget.find({'widgetname':req.body.widgetname}, function (err, widgets) {
         if (err) return next(err);
         if (widgets[0] == null){
