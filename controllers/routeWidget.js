@@ -42,4 +42,20 @@ router.post('/add', function (req, res, next) {
     });
 });
 
+router.delete('/remove', function (req, res, next) {
+    Widget.findById(req.body.id, function(err, widget) {
+        if (err) {
+            res.status(400);
+            return next(new Error("Widget not found"));
+        } else {
+            widget.remove(function(err) {
+                if (err) {
+                    res.status(500);
+                    return next(new Error("Server error"));
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;
