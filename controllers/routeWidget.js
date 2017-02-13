@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var Widget = require('../model/widgetdb.js');
 var fs = require('fs');
 
-
 router.get('/', function(req, res, next){
 	res.sendFile('admin.html', {root: "view/"});
 
@@ -19,7 +18,6 @@ router.get('/show', function (req, res, next) {
     res.json(widgets);
     });
 });
-
 
 router.post('/add', function (req, res, next) {
 	Widget.find({'widgetname':req.body.widgetname}, function (err, widgets) {
@@ -55,6 +53,14 @@ router.delete('/remove', function (req, res, next) {
                 }
             });
         }
+    });
+});
+
+router.get('/load', function (req, res, next) {
+    Widget.find(function (err, widgets) {
+    if (err) return next(err);
+    res.json({_id: widgets._id,
+            widgetname: widgets.widgetname});
     });
 });
 
