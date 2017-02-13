@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+    <title>Gamempire</title>
+	
+	<!-- Favicon -->
+    <link rel="icon" type="/image/png" href="/img/favicon.png" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+	<link href="/css/socialmedia.css" rel="stylesheet">    
+	
+	<!-- JQuery -->
+    <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+      
+	
+	<!-- JQuery -->
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
+	<!-- Load _header -->
+    <script> 
+    $(function(){
+      $("#_header").load("/_header.html"); 
+	  $("#_footer").load("/_footer.html"); 
+    });
+    </script>
+	<style>
+	li, span, p, h1, h2, h3, h4, h5 {
+		line-height: 1.8 !important;
+	}
+	</style>
+  </head>
+
+<body>
+<div id="_header"></div>
+
+<div class="container">
+    <div class="row">
+            <div class="col-md-12">
+
+                <!--Card-->
+                <div class="card">
+<div class="card" id="register" style="display: none;">
+    <div class="card-block">
+
+        <!--Header-->
+        <div class="text-xs-center">
+            <h3><i class="fa fa-user"></i> Register:</h3>
+        </div>
+
+        <!--Body-->
+        <form role="form" name="registration" data-toggle="validator">
+        <div class="md-form">
+            <i class="fa fa-user prefix"></i>
+            <input type="text" id="ru" name="username"class="form-control" >
+            <label for="ru">Your username</label>
+        </div>
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="email" id="re" name="email" class="form-control">
+            <label for="re">Your email</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input type="password" name="password" id="rp" class="form-control">
+            <label for="rp">Your password</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-address-book prefix"></i>
+            <input type="text" id="rfn" name="firstname" class="form-control" >
+            <label for="rfn">Your first name</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-address-book-o prefix"></i>
+            <input type="text" id="rln" name="lastname" class="form-control" >
+            <label for="rln">Your last name</label>
+        </div>
+
+        <div class="text-xs-center">
+            <button class="btn btn-indigo" type ="submit"id="reg">Sign up</button>
+             <button class="btn btn-indigo" id="back">Back</button>
+            <hr>
+            <fieldset class="form-group">
+                <input type="checkbox" id="checkbox1">
+                <label for="checkbox1">Subscribe me to the newsletter</label>
+            </fieldset>
+        </div>
+        </form>
+
+    </div>
+</div>
+                </div>
+                <!--/.Card-->
+
+            </div>
+    </div>
+</div>
+
+<div id="_footer"></div>

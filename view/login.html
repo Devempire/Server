@@ -1,0 +1,181 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<style type="text/css">
+        .card{
+            margin-top:  40px;
+			max-width:500px;
+			text-align: left;
+        }
+        
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+    <title>Gamempire</title>
+	
+	<!-- Favicon -->
+    <link rel="icon" type="/image/png" href="/img/favicon.png" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+	<link href="/css/socialmedia.css" rel="stylesheet">  
+	
+	
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+	
+
+	<style>
+	li, span, p, h1, h2, h3, h4, h5 {
+		line-height: 1.8 !important;
+	}
+	 .error {
+   background: white;
+   z-index: 1;
+}
+	</style>
+  </head>
+
+<body>
+<div id="_header"></div>
+<center>
+<div class="container">
+    <div class="row">
+            <div class="col-md-12">
+<div class="card" id ="loginpage">
+    <div class="card-block" id="enter">
+
+    <!--Header-->
+    <div class="text-xs-center">
+        <h3><!--<i class="fa fa-lock">--></i>Login</h3>
+        <hr class="mt-2 mb-2">
+    </div>
+
+    <!--Body-->
+    <div class="md-form">
+        <i class="fa fa-user prefix"></i>
+        <input type="text" id="user_id" name="user_id" class="form-control">
+		<label for="user_id">Username</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-lock prefix"></i>
+		<input type="password" id="password" name="password" class="form-control">
+		<label for="password">Password</label>
+    </div>
+
+    <div class="text-xs-center">
+	<div class="text-white" id="loginmsg"></div>
+        <button class="btn btn-primary waves-effect" id="login">Login</button>
+    </div>
+
+    </div>
+
+<!--Footer-->
+    <div class="modal-footer">
+        <div class="options">
+            <p>Not a member? <a href="javascript:void(0)" id="signup">Sign Up</a></p>
+            <p>Forgot <a href="javascript:void(0)">Password?</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="card" id="register" style="display: none;">
+    <div class="card-block">
+
+        <!--Header-->
+        <div class="text-xs-center">
+            <h3><!--<i class="fa fa-user">--></i>Sign Up</h3>
+        </div>
+
+        <!--Body-->
+        <form role="form" name="registration" data-toggle="validator">
+        <div class="md-form">
+            <i class="fa fa-user prefix"></i>
+            <input type="text" id="ru" name="username"class="form-control" >
+            <label for="ru">Username</label>
+        </div>
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="email" id="re" name="email" class="form-control">
+            <label for="re">Email</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input type="password" name="password" id="rp" class="form-control">
+            <label for="rp">Password</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-address-book prefix"></i>
+            <input type="text" id="rfn" name="firstname" class="form-control" >
+            <label for="rfn">First name</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-address-book-o prefix"></i>
+            <input type="text" id="rln" name="lastname" class="form-control" >
+            <label for="rln">Last name</label>
+        </div>
+
+		<div class="md-form">
+            <i class="fa fa-birthday-cake prefix"></i>
+			<input type="date" id="birth" class="form-control" >
+        </div>
+		
+        <div class="text-xs-center">
+		<center><fieldset class="form-group">
+		    <input type="checkbox" id="checkbox1" class="filled-in">
+                <label for="checkbox1">Keep me updated</label>
+				</fieldset>
+				</center>
+		<div class="bg-danger text-white" id="regmsg"></div>
+            <button class="btn btn-primary waves-effect" type ="submit" id="reg">Sign up</button>
+            <button class="btn btn-primary waves-effect" type="reset" id="back">Back</button>
+            <hr>
+        </div>
+        </form>
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+		<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+	    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.2.0/js/mdb.min.js"></script>
+
+	
+	
+		<!-- Load _header -->
+    <script> 
+    $(function(){
+      $("#_header").load("/_header.html"); 
+	  $("#_footer").load("/_footer.html"); 
+	  document.getElementById('birth').valueAsDate = new Date();
+    });
+    </script>
+	<script src="/js/login.js"></script>
+	</center>
+<div id="_footer"></div>

@@ -1,0 +1,257 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+    <title>Gamempire</title>
+	
+	<!-- Favicon -->
+    <link rel="icon" type="/image/png" href="/img/favicon.png" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+	<link href="/css/socialmedia.css" rel="stylesheet">  
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<style type="text/css">
+        #loginpage{
+            margin-top:  40px;
+			max-width:500px;
+			text-align: left;
+        }
+	li, span, p, h1, h2, h3, h4, h5 {
+		line-height: 1.8 !important;
+	}
+        
+    </style>
+
+  </head>
+<body style="background-color:#ffffff;">
+<div id="_header"></div>
+<div class="container">
+<!--
+	You need to be logged in to access this page.<br><br><a href="/login/" class="btn btn-default waves-effect">Login here</a><br><br><p>Redirecting to <a href="/login/">login</a> page in <span id="countdown">10</span> seconds.</p>
+-->
+<!-- LOGIN -->
+<div class="row">
+<center>
+	<div class="card" id ="loginpage" style="display: none;">
+    <div class="card-block" id="enter">
+    <!--Header-->
+    <div class="text-xs-center">
+        <h3><!--<i class="fa fa-lock">--></i>Login</h3>
+        <hr class="mt-2 mb-2">
+    </div>
+    <!--Body-->
+    <div class="md-form">
+        <i class="fa fa-user prefix"></i>
+        <input type="text" id="user_id" name="user_id" class="form-control">
+		<label for="user_id">Username</label>
+    </div>
+    <div class="md-form">
+        <i class="fa fa-lock prefix"></i>
+		<input type="password" id="password" name="password" class="form-control">
+		<label for="password">Password</label>
+    </div>
+    <div class="text-xs-center">
+	<div class="text-white" id="loginmsg"></div>
+        <button class="btn btn-primary waves-effect" id="login">Login</button>
+    </div>
+	<!--Footer-->
+    <div class="modal-footer">
+        <div class="options">
+            <p>Not a member? <a href="/login/" id="signup">Sign Up</a></p>
+            <p>Forgot <a href="javascript:void(0)" disabled>Password?</a></p>
+        </div>
+    </div>
+	</div>
+	</div>	<!-- / #loginpage -->
+	
+	</center>
+	</div> <!-- /row-->
+<!-- / LOGIN -->
+
+<div class="row">
+<div class="col-md-12">
+<div class="card-fluid" id="card-prof" style="display: none;">
+    <div class="card-block">
+
+        <!--Header-->
+        <div  id="profile">
+            <h3><i class="fa fa-user"></i> My Profile</h3>
+            <hr>
+			<div class="row">
+			
+			<div class="col-md-4" >
+            <img src="/img/user.jpg">
+			</div>
+			<div class="col-md-8">
+            <ul class="list-group">
+
+            <li class="list-group-item rgba-grey-slight" id="username-display">Username:</li>
+			<li class="list-group-item rgba-grey-slight" id="name">Name:</li>
+            <li class="list-group-item rgba-grey-slight" id="email">Email:</li>
+            <li class="list-group-item rgba-grey-slight" id="birthday">Your birthday is not provided</li>
+            </ul>
+			</div>
+			</div> <!-- /div ROW--><br>
+			<div class="row">
+			<div class="col-md-12">
+            <button type="button" class="btn btn-primary waves-effect" onclick="edit()">Edit your profile</button>
+            <button type="button" class="btn btn-primary waves-effect" onclick="changeEmail()">Change your email</button>
+            <button type="button" class="btn btn-primary waves-effect" onclick="changepw()">Change your password</button>
+			<button type="button" class="btn btn-danger waves-effect" onclick="logout()" style="float: right">Logout</button>
+			</div>
+			</div> <!-- /div ROW-->
+
+        </div>
+
+         <!--Header-->
+		 <div class="row">
+		<div class="col-md-6 offset-md-3">
+        <div style="display: none;" id ="updateEmail">
+        <div class="text-xs-center">
+            <h2><i class="fa fa-user"></i> Change Email</h2>
+        </div>
+        <h3><label id="email3">Current email</label></h3>
+            <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="email" id="newemail" >
+            <label for="new">New email</label>
+            </div>
+            <div class="text-xs-center">
+			<div class="text-white" id="emailmsg"></div>
+            <button class="btn btn-default waves-effect" id="update_email">Update</button>
+             <button class="btn btn-danger waves-effect" onclick="profile()">Back</button>
+
+        </div>
+
+        </div>
+		</div>
+		</div>
+
+         <!--Header-->
+		 <div class="row">
+		<div class="col-md-6 offset-md-3">
+        <div style="display: none;" id ="updatePW">
+        <div class="text-xs-center">
+            <h2><i class="fa fa-user"></i> Change Password</h2>
+        </div>
+
+            <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input type="password" id="oldpw" >
+            <label for="oldpw">Your current Password</label>
+            </div>
+
+            <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input type="password" id="newpw" >
+            <label for="newpw">Your new Password</label>
+            </div>
+
+            <div class="text-xs-center">
+			<div class="text-white" id="passmsg"></div>
+            <button class="btn btn-default waves-effect" id="update_pw">Update</button>
+             <button class="btn btn-danger waves-effect" onclick="profile()">Back</button>
+
+        </div>
+        </div>
+		</div>
+        </div>
+
+        <!--Header-->
+		<div class="row">
+		<div class="col-md-6 offset-md-3">
+        <div style="display: none;" id ="updateprofile">
+        <div class="text-xs-center">
+            <h2><i class="fa fa-user"></i> Edit</h2>
+        </div>
+        <!--Body-->
+       
+        <div class="md-form">
+            <i class="fa fa-address-book prefix"></i>
+            <input type="text" id="fn" name="firstname" >
+            <label for="fn">First name</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-address-book-o prefix"></i>
+            <input type="text" id="ln" name="lastname">
+            <label for="ln">Last name</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-birthday-cake prefix"></i>
+            <input type="date" id="birth" >
+        </div>
+
+        <div class="text-xs-center">
+		<div class="text-white" id="profilemsg"></div>
+            <button class="btn btn-default waves-effect" type ="submit" id="update">Update</button>
+             <button class="btn btn-danger waves-effect" onclick="profile()">Back</button>
+
+        </div>
+		</div>
+		</div>
+		</div>
+    </div>
+
+       
+
+    </div>
+	
+	
+	</div>
+	</div>
+	</div>
+</div>
+    <!-- /Start your project here-->
+    <style type="text/css">
+        .card{
+            margin-top:  5%;
+            margin-left: 10%;
+            margin-right: 10%;
+            line-height: 24px;
+            width: 60%;            
+        }
+        .gold { border-left: 5px solid #D8C86E; font-style: italic; padding-left: 30px; }
+
+        
+    </style>
+
+		<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+	    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/tether.min.js"></script>
+	<script src="/js/profile.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.2.0/js/mdb.min.js"></script>
+
+	
+	
+		<!-- Load _header -->
+		<input type="hidden" id="username"></input>
+    <script> 
+    $(function(){
+      $("#_header").load("/_header.html"); 
+	  $("#_footer").load("/_footer.html"); 
+    });
+    </script>
+	<script src="/js/login.js"></script>
+	
+<div id="_footer"></div>
