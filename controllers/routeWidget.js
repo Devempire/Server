@@ -42,4 +42,14 @@ router.post('/add', function (req, res, next) {
     });
 });
 
+router.get('/load', function (req, res, next) {
+    Widget.find(function (err, widgets) {
+    if (err) return next(err);
+    res.json({_id: widgets._id,
+            widgetname: widgets.widgetname});
+    });
+});
+
+
+
 module.exports = router;
