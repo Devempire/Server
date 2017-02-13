@@ -14,4 +14,4 @@ $("#ok").click(function(){
             console.log("something wrong");
         });
 
-    };
+    });

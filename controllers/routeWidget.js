@@ -10,6 +10,7 @@ router.get('/', function(req, res, next){
 	res.sendFile('admin.html', {root: "view/"});
 
 });
+
 /* show all widgets (for testing only), delete if running server in real application*/
 router.get('/show', function (req, res, next) {
     Widget.find(function (err, widgets) {
@@ -20,7 +21,7 @@ router.get('/show', function (req, res, next) {
 });
 
 
-router.post('/widget/add', function (req, res, next)) {
+router.post('/widget/add', function (req, res, next) {
 	Widget.find({'widgetname':req.body.widgetname}, function (err, widgets) {
         if (err) return next(err);
         if (widgets[0] == null){
