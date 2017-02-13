@@ -15,5 +15,27 @@ router.get('/show', function (req, res, next) {
     });
 });
 
-module.exports = router;
+router.post('/widget/add', function (req, res, next)) {
+	Widget.find({'widgetname':req.body.widgetname}, function (err, widgets) {
+        if (err) return next(err);
 
+        if (widgets[0] == null){
+            new Widget({
+                widgetname: req.body.widgetname,
+                type: req.body.type,
+                password: key,
+                default_size: req.body.default_size,
+                resizeable:req.body.resizeable,
+                draggable:req.body.draggable
+            }).save(function ( err, widget, count ){
+                if( err ) return next( err );
+                res.end("Submission Completed");
+            });
+        }else{
+          res.status(400);
+            return next(new Error("Invalid Widget Name"));
+        }
+    });
+});
+
+module.exports = router;
