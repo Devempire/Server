@@ -10,6 +10,7 @@ router.get('/', function(req, res, next){
 	res.sendFile('admin.html', {root: "view/"});
 
 });
+
 /* show all widgets (for testing only), delete if running server in real application*/
 router.get('/show', function (req, res, next) {
     Widget.find(function (err, widgets) {
