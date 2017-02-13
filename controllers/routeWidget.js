@@ -6,6 +6,10 @@ var Widget = require('../model/widgetdb.js');
 var fs = require('fs');
 
 
+router.get('/', function(req, res, next){
+	res.sendFile('admin.html', {root: "view/"});
+
+});
 /* show all widgets (for testing only), delete if running server in real application*/
 router.get('/show', function (req, res, next) {
     Widget.find(function (err, widgets) {
@@ -14,6 +18,7 @@ router.get('/show', function (req, res, next) {
     res.json(widgets);
     });
 });
+
 
 module.exports = router;
 
