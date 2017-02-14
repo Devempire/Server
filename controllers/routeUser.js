@@ -68,7 +68,7 @@ router.post('/find', function (req, res, next) {
     });
 });
 
-//load user with valid token 
+//load user with valid token
 router.post('/load', function(req,res,next){
 
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
@@ -77,12 +77,12 @@ router.post('/load', function(req,res,next){
     if (token) {
 
         // verifies secret and checks exp
-        jwt.verify(token, 'SecretKey', function(err, decoded) {          
+        jwt.verify(token, 'SecretKey', function(err, decoded) {
             if (err) {
-                return res.json({ success: false, message: 'Failed to authenticate token.' });      
+                return res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {
                 // if everything is good, save to request for use in other routes
-                req.decoded = decoded;  
+                req.decoded = decoded;
                 res.send(
                 {
                     _id :decoded._doc._id
@@ -94,20 +94,20 @@ router.post('/load', function(req,res,next){
 
         // if there is no token
         // return an error
-        return res.status(403).send({ 
-            success: false, 
+        return res.status(403).send({
+            success: false,
             message: 'No token provided.'
         });
-        
+
     }
-    
+
 });
 
 //get certerain user info
 router.get('/profile/:id/info',function(req,res,next){
     User.findById(req.params.id, function(err, user){
     if (err) return next(err);
- 
+
     res.send({
             username : user.username,
             firstname: user.firstname,
@@ -126,8 +126,8 @@ router.get('/profile/:id/info',function(req,res,next){
        {firstname:req.body.firstname,
         lastname:req.body.lastname,
         username:req.body.username,
-        dateofbirth:req.body.birthday   
-       
+        dateofbirth:req.body.birthday
+
        }, function (err, user) {
          if (err) return next(err);
 
@@ -152,8 +152,8 @@ router.get('/profile/:id/info',function(req,res,next){
  router.put('/profile/updateEmail',function(req,res,next){
      User.update( { _id:req.body._id},
        {
-        email:req.body.email       
-       
+        email:req.body.email
+
        }, function (err, user) {
          if (err) return next(err);
 
@@ -167,8 +167,8 @@ router.get('/profile/:id/info',function(req,res,next){
     var key = crypto.pbkdf2Sync(req.body.password, 'salt', 10000, 512);
      User.update( { _id:req.body._id},
        {
-        password:key       
-       
+        password:key
+
        }, function (err, user) {
          if (err) return next(err);
          console.log("password updated!");
@@ -223,8 +223,7 @@ router.post('/profile/checkold', function (req, res, next) {
 
             console.log("game updated!");
             res.json(user);
-        }
-     });
+       });
  });
 
 module.exports = router;
