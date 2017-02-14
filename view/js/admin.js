@@ -3,7 +3,7 @@ $("#add").click(function(){
                 {
                     "widgetname": $( "#widget" ).val(),
                     "type": $( "#type" ).val(),
-                    "size": $("#size").val(),
+                    "default_size": $("#size").val(),
                     "resizeable":$("#resize").val(),
                     "draggable":$("#drag").val(),
                 }
@@ -30,7 +30,7 @@ $("#delete").click(function(){
     });
 
 window.onload = function() {
-  $.get("/widget/load").done(function(res){
+  $.get("/widget/show").done(function(res){
     for (var i = 0; i < res.length; i++) {
        $('select').append($('<option>', {value:res[i]._id, text:res[i].widgetname}));
     }
