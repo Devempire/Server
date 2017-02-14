@@ -14,7 +14,6 @@ router.get('/', function(req, res, next){
 router.get('/show', function (req, res, next) {
     Widget.find(function (err, widgets) {
     if (err) return next(err);
-    console.log(widgets);
     res.json(widgets);
     });
 });

@@ -201,4 +201,15 @@ router.post('/profile/checkold', function (req, res, next) {
      });
  });
 
+ // remove user games with gamename
+ router.put('/profile/removegames',function(req,res,next){
+     User.update( { _id:req.body._id},
+       {$pull:{ gameinventory : {game:req.body.game}}, function (err, user) {
+         if (err) return next(err);
+
+         console.log("game updated!");
+         res.json(user);
+     });
+ });
+
 module.exports = router;
