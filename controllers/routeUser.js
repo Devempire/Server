@@ -211,12 +211,20 @@ router.post('/profile/checkold', function (req, res, next) {
          res.json(user);
      });
  });
- 
+
  // update game info
  router.put('/profile/updategames',function(req,res,next){
-     User.update( { _id:req.body._id},function(){
-        console.log("too tired to work");
-     })
+     User.update( { _id:req.body._id},
+        {game:req.body.game,
+         useringame:req.body.useringame,
+         interest:req.body.interest
+        }, function (err, user) {
+            if (err) return next(err);
+
+            console.log("game updated!");
+            res.json(user);
+        }
+     });
  });
 
 module.exports = router;
