@@ -190,13 +190,13 @@ router.post('/profile/checkold', function (req, res, next) {
     });
 });
 
- // update user games with interest
- router.put('/profile/updategames',function(req,res,next){
+ // add user games with interest
+ router.put('/profile/addgames',function(req,res,next){
      User.update( { _id:req.body._id},
        {$push:{ gameinventory : {game:req.body.game, useringame: req.body.useringame, interest:req.body.interest}}}, function (err, user) {
          if (err) return next(err);
 
-         console.log("game updated!");
+         console.log("game added!");
          res.json(user);
      });
  });
@@ -207,9 +207,15 @@ router.post('/profile/checkold', function (req, res, next) {
        {$pull:{ gameinventory : {game:req.body.game}}, function (err, user) {
          if (err) return next(err);
 
-         console.log("game updated!");
+         console.log("game removed!");
          res.json(user);
      });
+ });
+ // update game info
+ router.put('/profile/updategames',function(req,res,next){
+     User.update( { _id:req.body._id},function(){
+        console.log("too tired to work");
+     })
  });
 
 module.exports = router;
