@@ -18,7 +18,7 @@ $("#add").click(function(){
 $("#delete").click(function(){
     $.delete( "/widget/remove",
                 {
-                    "_id": $( "#load option:selected" ).val();
+                    "_id": $( "#load option:selected" ).val()
                     
                 }
         )
@@ -31,7 +31,7 @@ $("#delete").click(function(){
 
 window.onload = function() {
   $.get("/widget/load").done(function(res){
-    for (var i = 0, i < res.length; i++) {
+    for (var i = 0; i < res.length; i++) {
        $('select').append($('<option>', {value:res[i]._id, text:res[i].widgetname}));
     }
     
