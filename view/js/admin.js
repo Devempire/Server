@@ -16,7 +16,7 @@ $("#add").click(function(){
     });
 
 $("#delete").click(function(){
-    $.post( "/widget/delete",
+    $.delete( "/widget/remove",
                 {
                     "_id": $( "#load option:selected" ).val();
                     

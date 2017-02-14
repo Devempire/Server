@@ -41,7 +41,7 @@ router.post('/add', function (req, res, next) {
 });
 
 router.delete('/remove', function (req, res, next) {
-    Widget.findById(req.body.id, function(err, widget) {
+    Widget.findById(req.body._id, function(err, widget) {
         if (err) {
             res.status(400);
             return next(new Error("Widget not found"));
