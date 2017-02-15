@@ -21,7 +21,6 @@ router.put('/update', function(req, res, next) {
        
       }, function (err, user) {
         if (err) return next(err);
-        console.log(user);
         res.json(user);
     });
 });
@@ -34,7 +33,6 @@ router.put('/updateEmail', function(req, res, next) {
        
       }, function (err, user) {
         if (err) return next(err);
-        console.log(user);
         res.json(user);
     });
 });
@@ -112,7 +110,7 @@ router.put('/updatePW', function(req, res, next) {
        
       }, function (err, user) {
         if (err) return next(err);
-        console.log(user);
+        
         res.json(user);
     });
 });

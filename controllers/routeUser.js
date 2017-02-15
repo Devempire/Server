@@ -17,7 +17,6 @@ router.get('/', function(req, res, next){
 router.get('/show', function (req, res, next) {
     User.find(function (err, users) {
     if (err) return next(err);
-    console.log(users);
     res.json(users);
     });
 });
@@ -27,7 +26,6 @@ router.post('/add', function (req, res, next) {
     var key = crypto.pbkdf2Sync(req.body.password, 'salt', 10000, 512);
     User.find({'username':req.body.username}, function (err, users) {
         if (err) return next(err);
-        console.log(req.body.username);
         if (users[0] == null){
             new User({
                 username: req.body.username,
@@ -51,7 +49,6 @@ router.post('/add', function (req, res, next) {
 /*find a user*/
 router.post('/find', function (req, res, next) {
     var key = crypto.pbkdf2Sync(req.body.password, 'salt', 10000, 512);
-    console.log(key);
     User.find({'username':req.body.username, 'password':key}, function (err, users) {
         if (err) return next(err);
         if (!(users[0] == null)){
@@ -130,8 +127,6 @@ router.get('/profile/:id/info',function(req,res,next){
 
        }, function (err, user) {
          if (err) return next(err);
-
-         console.log("profile updated!");
          res.json(user);
      });
  });
@@ -156,8 +151,6 @@ router.get('/profile/:id/info',function(req,res,next){
 
        }, function (err, user) {
          if (err) return next(err);
-
-         console.log("email updated!");
          res.json(user);
      });
  });
@@ -171,7 +164,6 @@ router.get('/profile/:id/info',function(req,res,next){
 
        }, function (err, user) {
          if (err) return next(err);
-         console.log("password updated!");
          res.json(user);
      });
  });
@@ -195,8 +187,6 @@ router.post('/profile/checkold', function (req, res, next) {
      User.update( { _id:req.body._id},
        {$push:{ gameinventory : {game:req.body.game, useringame: req.body.useringame, interest:req.body.interest}}}, function (err, user) {
          if (err) return next(err);
-
-         console.log("game added!");
          res.json(user);
      });
  });
@@ -207,7 +197,6 @@ router.post('/profile/checkold', function (req, res, next) {
        {$pull:{ gameinventory : {game:req.body.game}}}, function (err, user) {
          if (err) return next(err);
 
-         console.log("game removed!");
          res.json(user);
      });
  });
