@@ -2,7 +2,7 @@ $("#add").click(function(){
     $.post( "/widget/add",
                 {
                     "widgetname": $( "#widget" ).val(),
-                    "type": $( "#type" ).val(),
+                    "widgettype": $( "#type" ).val(),
                     "initial_width":$("#iw").val(),
                     "initial_height":$("#ih").val(),
                     "min_width":$("#minw").val(),

@@ -115,7 +115,8 @@ router.get('/profile/:id/info',function(req,res,next){
             email:user.email,
             dateofbirth: user.dateofbirth,
             widgets:user.widgets,
-            img: user.img
+            //img: user.img,
+            aboutme:user.aboutme,
         });
     });
 });
@@ -132,6 +133,18 @@ router.get('/profile/:id/info',function(req,res,next){
          if (err) return next(err);
 
          console.log("profile updated!");
+         res.json(user);
+     });
+ });
+
+ //update user aboutme
+ router.put('/profile/updateaboutme',function(req,res,next){
+     User.update( { _id:req.body._id},
+       {aboutme:req.body.aboutme,
+       }, function (err, user) {
+         if (err) return next(err);
+
+         console.log("aboutme updated!");
          res.json(user);
      });
  });

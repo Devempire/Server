@@ -7,6 +7,7 @@ var UserSchema = mongoose.Schema({
     username: {type: String, unique:true},
     password: String,
     email: {type: String, unique:true},
+    aboutme:{type:String,default:''},
     is_verified: {type: Boolean, default: false}, //default not verrified
     verification_code: {type: String, unique:false, default: null}, //email verrification code. default blank.
     dateofbirth: {type: String, default:''},
