@@ -11,6 +11,7 @@ var UserSchema = mongoose.Schema({
     verification_code: {type: String, unique:false, default: null}, //email verrification code. default blank.
     dateofbirth: {type: String, default:''},
     gameinventory:[{game: String, useringame: String, interest: Array}],
+    widgets:[{widgetname: String, widgetid: String, username: String}],
     gamertype: {type: String, default: ''},
     friends: {type: Array, default: ''},
     mic: {type: Boolean, default: false } //default no mic

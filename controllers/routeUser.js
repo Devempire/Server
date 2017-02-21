@@ -17,6 +17,7 @@ router.get('/', function(req, res, next){
 router.get('/show', function (req, res, next) {
     User.find(function (err, users) {
     if (err) return next(err);
+    console.log(users);
     res.json(users);
     });
 });
@@ -26,6 +27,7 @@ router.post('/add', function (req, res, next) {
     var key = crypto.pbkdf2Sync(req.body.password, 'salt', 10000, 512);
     User.find({'username':req.body.username}, function (err, users) {
         if (err) return next(err);
+        console.log(req.body.username);
         if (users[0] == null){
             new User({
                 username: req.body.username,
@@ -49,6 +51,7 @@ router.post('/add', function (req, res, next) {
 /*find a user*/
 router.post('/find', function (req, res, next) {
     var key = crypto.pbkdf2Sync(req.body.password, 'salt', 10000, 512);
+    console.log(key);
     User.find({'username':req.body.username, 'password':key}, function (err, users) {
         if (err) return next(err);
         if (!(users[0] == null)){
@@ -111,7 +114,7 @@ router.get('/profile/:id/info',function(req,res,next){
             lastname :user.lastname,
             email:user.email,
             dateofbirth: user.dateofbirth,
-            gameinventory:user.gameinventory,
+            widgets:user.widgets,
             img: user.img
         });
     });
@@ -127,6 +130,8 @@ router.get('/profile/:id/info',function(req,res,next){
 
        }, function (err, user) {
          if (err) return next(err);
+
+         console.log("profile updated!");
          res.json(user);
      });
  });
@@ -151,6 +156,8 @@ router.get('/profile/:id/info',function(req,res,next){
 
        }, function (err, user) {
          if (err) return next(err);
+
+         console.log("email updated!");
          res.json(user);
      });
  });
@@ -164,6 +171,7 @@ router.get('/profile/:id/info',function(req,res,next){
 
        }, function (err, user) {
          if (err) return next(err);
+         console.log("password updated!");
          res.json(user);
      });
  });
@@ -182,21 +190,24 @@ router.post('/profile/checkold', function (req, res, next) {
     });
 });
 
- // add user games with interest
- router.put('/profile/addgames',function(req,res,next){
+ // user add games
+ router.put('/profile/addwidget',function(req,res,next){
      User.update( { _id:req.body._id},
-       {$push:{ gameinventory : {game:req.body.game, useringame: req.body.useringame, interest:req.body.interest}}}, function (err, user) {
+       {$push:{ widgets : {widgetname:req.body.widgetname, widgetid:req.body.widgetid, username: req.body.username}}}, function (err, user) {
          if (err) return next(err);
+
+         console.log("Widget added!");
          res.json(user);
      });
  });
 
  // remove user games with gamename
- router.put('/profile/removegames',function(req,res,next){
+ router.put('/profile/removewidget',function(req,res,next){
      User.update( { _id:req.body._id},
-       {$pull:{ gameinventory : {game:req.body.game}}}, function (err, user) {
+       {$pull:{ widgets : {widgetid:req.body.widgetid}}}, function (err, user) {
          if (err) return next(err);
 
+         console.log("Widget removed!");
          res.json(user);
      });
  });
