@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var WidgetSchema = mongoose.Schema({
     widgetname:{type:String,unique:true},
-    type:String,
+    widgettype:String,
     initial_width:String,
     initial_height:String,
     min_width:String,

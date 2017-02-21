@@ -24,7 +24,7 @@ router.post('/add', function (req, res, next) {
         if (widgets[0] == null){
             new Widget({
                 widgetname: req.body.widgetname,
-                type: req.body.type,
+                widgettype: req.body.type,
                 initial_width:req.body.initial_width,
                 initial_height:req.body.initial_height,
                 min_width:req.body.min_width,
