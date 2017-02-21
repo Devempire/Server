@@ -25,7 +25,12 @@ router.post('/add', function (req, res, next) {
             new Widget({
                 widgetname: req.body.widgetname,
                 type: req.body.type,
-                default_size: req.body.default_size,
+                initial_width:req.body.initial_width,
+                initial_height:req.body.initial_height,
+                min_width:req.body.min_width,
+                min_height:req.body.min_height,
+                max_width:req.body.max_width,
+                max_height:req.body.max_height,
                 resizeable:req.body.resizeable,
                 draggable:req.body.draggable
             }).save(function ( err, widget, count ){

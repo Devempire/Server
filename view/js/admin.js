@@ -3,7 +3,12 @@ $("#add").click(function(){
                 {
                     "widgetname": $( "#widget" ).val(),
                     "type": $( "#type" ).val(),
-                    "default_size": $("#size").val(),
+                    "initial_width":$("#iw").val(),
+                    "initial_height":$("#ih").val(),
+                    "min_width":$("#minw").val(),
+                    "min_height":$("#minh").val(),
+                    "max_width":$("#maxw").val(),
+                    "max_height":$("#maxh").val(),
                     "resizeable":$("#resize").val(),
                     "draggable":$("#drag").val(),
                 }
