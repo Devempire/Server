@@ -117,6 +117,7 @@ router.get('/profile/:id/info',function(req,res,next){
             widgets:user.widgets,
             //img: user.img,
             aboutme:user.aboutme,
+            layout:user.layout,
         });
     });
 });
@@ -145,6 +146,18 @@ router.get('/profile/:id/info',function(req,res,next){
          if (err) return next(err);
 
          console.log("aboutme updated!");
+         res.json(user);
+     });
+ });
+
+  //update user layout
+ router.put('/profile/updatelayout',function(req,res,next){
+     User.update( { _id:req.body._id},
+       {layout:req.body.layout,
+       }, function (err, user) {
+         if (err) return next(err);
+
+         console.log("layout updated!");
          res.json(user);
      });
  });

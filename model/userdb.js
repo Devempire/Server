@@ -15,7 +15,8 @@ var UserSchema = mongoose.Schema({
     widgets:[{widgetname: String, widgetid: String, username: String}],
     gamertype: {type: String, default: ''},
     friends: {type: Array, default: ''},
-    mic: {type: Boolean, default: false } //default no mic
+    mic: {type: Boolean, default: false }, //default no mic
+    layout:{type:String,default:''},
     //img: {data: Buffer, contentType: String}
 });
 

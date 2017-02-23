@@ -29,7 +29,7 @@ if  (cluster.isMaster)  {
 
 
 		    // TO DELETE / DROP MONGOOSE DATABAASE
-		    mongoose.connection.db.dropDatabase();
+		    //mongoose.connection.db.dropDatabase();
         if(err) {
             console.log('connection error', err);
         } else {
