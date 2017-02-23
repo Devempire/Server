@@ -16,7 +16,7 @@ var UserSchema = mongoose.Schema({
     gamertype: {type: String, default: ''},
     friends: {type: Array, default: ''},
     mic: {type: Boolean, default: false }, //default no mic
-    layout:{type:String,default:''},
+    layout:{type:Array,default:[]},
     //img: {data: Buffer, contentType: String}
 });
 
