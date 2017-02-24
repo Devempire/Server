@@ -25,12 +25,14 @@ router.post('/add', function (req, res, next) {
             new Widget({
                 widgetname: req.body.widgetname,
                 widgettype: req.body.widgettype,
-                initial_width:req.body.initial_width,
-                initial_height:req.body.initial_height,
-                min_width:req.body.min_width,
-                min_height:req.body.min_height,
-                max_width:req.body.max_width,
-                max_height:req.body.max_height,
+                w:req.body.w,
+                h:req.body.h,
+                x:req.body.x,
+                y:req.body.y,
+                minH:req.body.minH,
+                maxH:req.body.maxH,
+                minW:req.body.minW,
+                maxW:req.body.maxW,
                 resizeable:req.body.resizeable,
                 draggable:req.body.draggable
             }).save(function ( err, widget, count ){
@@ -58,6 +60,14 @@ router.post('/remove', function (req, res, next) {
                 res.end("deleted!");
             });
         }
+    });
+});
+
+//find a widget by id
+router.get('/find/:id/info', function (req, res, next) {
+    Widget.findById(req.params.id, function(err, widget) {
+        if (err) return next(err);
+        res.send(widget);
     });
 });
 

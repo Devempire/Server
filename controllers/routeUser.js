@@ -12,13 +12,12 @@ router.get('/', function(req, res, next){
 
 });
 
-
 /* show all users (for testing only), delete if running server in real application*/
-router.get('/show', function (req, res, next) {
-    User.find(function (err, users) {
-    if (err) return next(err);
-    console.log(users);
-    res.json(users);
+ router.get('/show', function (req, res, next) {
+     User.find(function (err, users) {
+     if (err) return next(err);
+     console.log(users);
+     res.json(users);
     });
 });
 
@@ -219,7 +218,7 @@ router.post('/profile/checkold', function (req, res, next) {
  // user add games
  router.put('/profile/addwidget',function(req,res,next){
      User.update( { _id:req.body._id},
-       {$push:{ widgets : {widgetname:req.body.widgetname, widgetid:req.body.widgetid, username: req.body.username}}}, function (err, user) {
+       {$push:{ widgets : {widgetid:req.body.widgetid}}}, function (err, user) {
          if (err) return next(err);
 
          console.log("Widget added!");
