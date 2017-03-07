@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "server.js",
   "scripts": {
+    "forever" : "PORT=80 forever --minUptime 1000 start server.js",
     "start": "node server.js"
   },
   "dependencies": {

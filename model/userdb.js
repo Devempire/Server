@@ -6,6 +6,7 @@ var UserSchema = mongoose.Schema({
     lastname: String,
     username: {type: String, unique:true},
     password: String,
+    avatar: {type: Boolean, default:false},
     email: {type: String, unique:true},
     aboutme:{type:String,default:''},
     is_verified: {type: Boolean, default: false}, //default not verrified
@@ -14,8 +15,7 @@ var UserSchema = mongoose.Schema({
     widgets:[{widgetid: String}],
     friends: {type: Array},
     mic: {type: Boolean, default: false }, //default no mic
-    layout:{type:Array,default:[]},
-    //img: {data: Buffer, contentType: String}
+    layout:{type:Object,default:{}}
 });
 
 var User = mongoose.model('User', UserSchema);

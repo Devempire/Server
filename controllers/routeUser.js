@@ -13,11 +13,11 @@ router.get('/', function(req, res, next){
 });
 
 /* show all users (for testing only), delete if running server in real application*/
- router.get('/show', function (req, res, next) {
-     User.find(function (err, users) {
-     if (err) return next(err);
-     console.log(users);
-     res.json(users);
+router.get('/show', function (req, res, next) {
+    User.find(function (err, users) {
+        if (err) return next(err);
+        console.log(users);
+        res.json(users);
     });
 });
 
@@ -44,7 +44,6 @@ router.post('/add', function (req, res, next) {
             return next(new Error("Invalid Username"));
         }
     });
-
 });
 
 /*find a user*/
@@ -114,9 +113,9 @@ router.get('/profile/:id/info',function(req,res,next){
             email:user.email,
             dateofbirth: user.dateofbirth,
             widgets:user.widgets,
-            //img: user.img,
+            avatar: user.avatar,
             aboutme:user.aboutme,
-            layout:user.layout,
+            layout:user.layout
         });
     });
 });
@@ -160,18 +159,6 @@ router.get('/profile/:id/info',function(req,res,next){
          res.json(user);
      });
  });
-
-//update user profile picture
-// router.put('/profile/updatePic', function(req, res, next) {
-//     User.update( { _id:req.body._id},
-//        {
-//         img:req.body.img
-//        }, function (err, user) {
-//          if (err) return next(err);
-
-//          res.json(user);
-//      });
-// })
 
  // update user Email
  router.put('/profile/updateEmail',function(req,res,next){
@@ -237,18 +224,26 @@ router.post('/profile/checkold', function (req, res, next) {
      });
  });
 
- // // update game info
- // router.put('/profile/updategames',function(req,res,next){
- //     User.update( { _id:req.body._id},
- //        {game:req.body.game,
- //         useringame:req.body.useringame,
- //         interest:req.body.interest
- //        }, function (err, user) {
- //            if (err) return next(err);
+router.post("/profile/updateAvatar",function(req,res,next){
+    var id = req.body._id;
 
- //            console.log("game updated!");
- //            res.json(user);
- //       });
- // });
+		base64Data = req.body.avatar.replace(/^data:image\/jpeg;base64,/,"");
+		binaryData = new Buffer(base64Data, 'base64').toString('binary');
+    fs.writeFile('./view/img/avatars/'+id+'.jpg', binaryData, 'binary', function(err){
+        if (err) throw err
+
+        console.log('Image saved.');
+    });
+
+    User.update( { _id:req.body._id},
+       {
+            avatar: true
+       }, function (err, user) {
+         if (err) return next(err);
+
+         console.log("Image URL updated!");
+         res.json(user);
+     });
+});
 
 module.exports = router;

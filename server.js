@@ -24,12 +24,13 @@ if  (cluster.isMaster)  {
    //AMAZON WEB SERVICES
    mongoose.connect('mongodb://localhost/db', function(err) {
 
-   //HEROKU
-   //mongoose.connect('mongodb://heroku:devempire1337@ds117109.mlab.com:17109/user', function(err) {
+		    //Rest UserDB
+		    //mongoose.connection.collections['users'].drop();
+
+        //Reset WidgetDB
+        // mongoose.connection.collections['widgets'].drop();
 
 
-		    // TO DELETE / DROP MONGOOSE DATABAASE
-		    //mongoose.connection.db.dropDatabase();
         if(err) {
             console.log('connection error', err);
         } else {
