@@ -213,6 +213,17 @@ router.post('/profile/checkold', function (req, res, next) {
      });
  });
 
+ // update ingame name for a game
+ router.put('/profile/updatewidget',function(req,res,next){
+        User.update( { _id:req.body._id,"widgets.widgetid":req.body.widgetid},
+        { $set: { "widgets.$.name" : req.body.name } }, function (err, user) {
+         if (err) return next(err);if (err) return next(err);
+
+         console.log("Widget update!");
+         res.json(user);
+     });
+ });
+
  // remove user games with gamename
  router.put('/profile/removewidget',function(req,res,next){
      User.update( { _id:req.body._id},
