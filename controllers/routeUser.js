@@ -257,4 +257,23 @@ router.post("/profile/updateAvatar",function(req,res,next){
      });
 });
 
+//remove user profile picture
+router.put("/profile/deleteAvatar",function(req,res,next){
+    User.update( { _id:req.body._id},
+        {
+            avatar: false
+        }, function (err, user) {
+            if (err) return next(err);
+
+            console.log("Image URL updated!");
+            res.json(user);
+    });
+
+    fs.unlink('./view/img/avatars/'+req.body._id+'.jpg', function(err){
+        if (err) throw err
+
+        console.log('Image removed.');
+    });
+});
+
 module.exports = router;
