@@ -214,15 +214,15 @@ router.post('/profile/checkold', function (req, res, next) {
  });
 
  // update ingame name for a game
- router.put('/profile/updatewidget',function(req,res,next){
-        User.update( { _id:req.body._id,"widgets.widgetid":req.body.widgetid},
-        { $set: { "widgets.$.data" : req.body.data } }, function (err, user) {
-         if (err) return next(err);if (err) return next(err);
+ // router.put('/profile/updatewidget',function(req,res,next){
+ //        User.update( { _id:req.body._id,"widgets.widgetid":req.body.widgetid},
+ //        { $set: { "widgets.$.data" : req.body.data } }, function (err, user) {
+ //         if (err) return next(err);if (err) return next(err);
 
-         console.log("Widget update!");
-         res.json(user);
-     });
- });
+ //         console.log("Widget update!");
+ //         res.json(user);
+ //     });
+ // });
 
  // remove user games with gamename
  router.put('/profile/removewidget',function(req,res,next){
@@ -275,5 +275,15 @@ router.put("/profile/deleteAvatar",function(req,res,next){
         console.log('Image removed.');
     });
 });
+//update data for notepad for user
+router.put('/profile/dataupload',function(req,res,next){
+     User.update( { _id:req.body._id},
+       {data:req.body.data}, function (err, user) {
+         if (err) return next(err);
+
+         console.log("data added");
+         res.json(user);
+     });
+ });
 
 module.exports = router;

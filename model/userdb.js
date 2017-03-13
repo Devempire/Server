@@ -12,8 +12,9 @@ var UserSchema = mongoose.Schema({
     is_verified: {type: Boolean, default: false}, //default not verrified
     verification_code: {type: String, unique:false, default: null}, //email verrification code. default blank.
     dateofbirth: {type: String, default:''},
-    widgets:[{widgetid: String,data:Object}],
+    widgets:[{widgetid: String}],
     friends: {type: Array},
+    data:Object,
     mic: {type: Boolean, default: false }, //default no mic
     layout:{type:Object,default:{}}
 });
