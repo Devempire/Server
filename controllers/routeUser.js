@@ -115,7 +115,8 @@ router.get('/profile/:id/info',function(req,res,next){
             widgets:user.widgets,
             avatar: user.avatar,
             aboutme:user.aboutme,
-            layout:user.layout
+            layout:user.layout,
+            data:user.data,
         });
     });
 });
