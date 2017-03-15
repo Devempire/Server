@@ -1,6 +1,5 @@
-window.onload =function(){
-    var cookie =  document.cookie.split(';')
-    var token;
+var cookie =  document.cookie.split(';')
+var token;
     //get token from cookie
     for (var i = 0;i<cookie.length; i++) {
         var name = cookie[i].split('=')[0].replace(' ','');
@@ -9,6 +8,10 @@ window.onload =function(){
 
       }
     };
+
+window.onload =function(){
+    
+    
     //check token avaliable
     $.post( "/profile/load",
                 {'token' :token
@@ -97,7 +100,7 @@ window.onload =function(){
                   url:"/profile/update",
                   type:"PUT",
                   data:{
-                      "_id":data._id;
+                      "_id":data._id,
                       "firstname":$("#fn").val(),
                       "lastname":$("#ln").val(),
                       "birthday":$("#birth").val()
@@ -235,70 +238,9 @@ window.onload =function(){
 	  }
        });
 
-      function loadImage() {
-        var input, file, fr, img;
+      
 
-        if (typeof window.FileReader !== 'function') {
-            write("The file API isn't supported on this browser yet.");
-            return;
-        }
-
-        input = document.getElementById('newavatar');
-        if (!input) {
-            write("Um, couldn't find the imgfile element.");
-        }
-        else if (!input.files) {
-            write("This browser doesn't seem to support the `files` property of file inputs.");
-        }
-        else if (!input.files[0]) {
-            write("Please select a file before clicking 'Submit'");
-        }
-        else {
-            file = input.files[0];
-            fr = new FileReader();
-            fr.onload = createImage;
-            fr.readAsDataURL(file);
-        }
-
-        function createImage() {
-            img = new Image();
-            img.onload = imageLoaded;
-            img.src = fr.result;
-        }
-
-        function imageLoaded() {
-            var canvas = document.getElementById("canvas")
-            canvas.width = 200;
-            canvas.height = 200;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img,0,0);
-            var hi=canvas.toDataURL('image/jpeg');
-
-            $.post(api_server+"/user/load",
-            {
-              'token' :token
-            }).done((d)=> {
-            $.ajax({
-                    url:"/updateAvatar",
-                    type:"POST",
-                    data:{
-                        _id:d._id,
-                        avatar:imgData.toDataURL('image/jpeg')
-                    }
-                }).done((res)=>{
-                    $.("#avatar").hide();
-                }).fail((err)=>{
-                    console.log('Avatar update failed.');
-                });
-            });
-        }
-
-        function write(msg) {
-            var p = document.createElement('p');
-            p.innerHTML = msg;
-            document.body.appendChild(p);
-        }
-    }
+        
 
     }
 
@@ -384,3 +326,67 @@ $("#newpw").keypress(function (e) {
      $('#update_pw').click();
   });
 
+function loadImage() {
+        var input, file, fr, img;
+
+        if (typeof window.FileReader !== 'function') {
+            write("The file API isn't supported on this browser yet.");
+            return;
+        }
+
+        input = document.getElementById('newavatar');
+        if (!input) {
+            write("Um, couldn't find the imgfile element.");
+        }
+        else if (!input.files) {
+            write("This browser doesn't seem to support the `files` property of file inputs.");
+        }
+        else if (!input.files[0]) {
+            write("Please select a file before clicking 'Submit'");
+        }
+        else {
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = createImage;
+            fr.readAsDataURL(file);
+        }
+
+        function createImage() {
+            img = new Image();
+            img.onload = imageLoaded;
+            img.src = fr.result;
+        }
+        
+        function imageLoaded() {
+            var canvas = document.getElementById("canvas")
+            canvas.width = 200;
+            canvas.height = 200;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img,0,0,180,180);
+            var hi=canvas.toDataURL('image/jpeg');
+
+            $.post("/profile/load",
+            {
+              'token' :token
+            }).done((d)=> {
+            $.ajax({
+                    url:"/profile/updateAvatar",
+                    type:"POST",
+                    data:{
+                        _id:d._id,
+                        avatar:hi,
+                    }
+                }).done((res)=>{
+                    $("#avatar").hide();
+                }).fail((err)=>{
+                    console.log('Avatar update failed.');
+                });
+            });
+        }
+
+        function write(msg) {
+            var p = document.createElement('p');
+            p.innerHTML = msg;
+            document.body.appendChild(p);
+        }
+    }
