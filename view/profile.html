@@ -90,9 +90,12 @@
             <hr>
 			<div class="row">
 			
-			<div class="col-md-4" >
+			<div class="col-md-4">
             <img id="avatar" src="/img/avatars/user.jpg">
-            <input type="file" name="pic" accept="image/*""> 
+            <canvas id="canvas"></canvas>
+            <input type="file" id="newavatar" name="pic" accept="image/*"">
+            <input type='button' id='btnLoad' value='submit' onclick='loadImage();' /> 
+           
 			</div>
 			<div class="col-md-8">
             <ul class="list-group">

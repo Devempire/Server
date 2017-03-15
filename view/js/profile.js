@@ -312,3 +312,50 @@ $("#newpw").keypress(function (e) {
   if(e.keyCode=='13') //Keycode for "Return"
      $('#update_pw').click();
   });
+
+function loadImage() {
+        var input, file, fr, img;
+
+        if (typeof window.FileReader !== 'function') {
+            write("The file API isn't supported on this browser yet.");
+            return;
+        }
+
+        input = document.getElementById('newavatar');
+        if (!input) {
+            write("Um, couldn't find the imgfile element.");
+        }
+        else if (!input.files) {
+            write("This browser doesn't seem to support the `files` property of file inputs.");
+        }
+        else if (!input.files[0]) {
+            write("Please select a file before clicking 'Submit'");
+        }
+        else {
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = createImage;
+            fr.readAsDataURL(file);
+        }
+
+        function createImage() {
+            img = new Image();
+            img.onload = imageLoaded;
+            img.src = fr.result;
+        }
+
+        function imageLoaded() {
+            var canvas = document.getElementById("canvas")
+            canvas.width = 200;
+            canvas.height = 200;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img,0,0);
+            var hi=canvas.toDataURL('image/jpeg');
+        }
+
+        function write(msg) {
+            var p = document.createElement('p');
+            p.innerHTML = msg;
+            document.body.appendChild(p);
+        }
+    }
