@@ -84,6 +84,7 @@ router.get('/:id/info',function(req,res,next){
                             dateofbirth: user.dateofbirth,
                             lastname:user.lastname,
                             firstname:user.firstname,
+                            avatar: user.avatar,
 
                 });
     });
@@ -115,6 +116,28 @@ router.put('/updatePW', function(req, res, next) {
         console.log(user);
         res.json(user);
     });
+});
+
+router.post("/updateAvatar",function(req,res,next){
+    var id = req.body._id;
+
+        base64Data = req.body.avatar.replace(/^data:image\/jpeg;base64,/,"");
+        binaryData = new Buffer(base64Data, 'base64').toString('binary');
+    fs.writeFile('./view/img/avatars/'+id+'.jpg', binaryData, 'binary', function(err){
+        if (err) throw err
+
+        console.log('Image saved.');
+    });
+
+    User.update( { _id:req.body._id},
+       {
+            avatar: true
+       }, function (err, user) {
+         if (err) return next(err);
+
+         console.log("Image URL updated!");
+         res.json(user);
+     });
 });
 
 module.exports = router;

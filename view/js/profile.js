@@ -18,11 +18,15 @@ window.onload =function(){
         .done(function(data) {
             //get user profile by user id
           $.get("/profile/"+data._id +"/info").done(function(d){
-
+            if (d.avatar) {
+        
+            var avatar = 'http://gamempire.net/img/avatars/'+data._id+'.jpg' ;
+            $("#avatar").attr("src",avatar);
+            }
             window.firstname = d.firstname;
             window.lastname = d.lastname;
             window.dateofbirth = d.dateofbirth;
-
+           
             $("#username").val(d.username.toLowerCase());
 			$("#username-display").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Username: <b>"+d.username.toLowerCase()+"</b>");
             $("#name").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Name: <b>"+d.firstname+" "+d.lastname+"</b>");
