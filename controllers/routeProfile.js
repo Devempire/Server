@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 router.put('/update', function(req, res, next) {
 
-    User.update(
+    User.update({_id:req.body._id},
       { 
         firstname:req.body.firstname,
         lastname:req.body.lastname,
