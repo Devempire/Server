@@ -359,11 +359,10 @@ function loadImage() {
         
         function imageLoaded() {
             var canvas = document.getElementById("canvas")
-            canvas.width = 200;
-            canvas.height = 200;
+            canvas.width = 180;
+            canvas.height = 180;
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img,0,0,180,180);
-            var hi=canvas.toDataURL('image/jpeg');
 
             $.post("/profile/load",
             {
@@ -374,7 +373,7 @@ function loadImage() {
                     type:"POST",
                     data:{
                         _id:d._id,
-                        avatar:hi,
+                        avatar:canvas.toDataURL('image/jpeg'),
                     }
                 }).done((res)=>{
                     $("#avatar").hide();

@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var User = require('../model/userdb.js');
 var crypto = require('crypto');
-
+var fs = require('fs');
 
 router.get('/', function(req, res, next) {
    
