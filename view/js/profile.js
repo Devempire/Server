@@ -23,7 +23,7 @@ window.onload =function(){
           $.get("/profile/"+data._id +"/info").done(function(d){
             if (d.avatar) {
         
-            var avatar = 'http://gamempire.net/img/avatars/'+data._id+'.jpg' ;
+            var avatar = 'http://gamempire.net/img/avatars/'+data._id+'.jpg?'+ new Date().getTime()+'';
             $("#avatar").attr("src",avatar);
             }
             window.firstname = d.firstname;
