@@ -14,7 +14,6 @@ var port = process.env.PORT || 8080;
 var userRoute = require('./controllers/routeUser.js');
 var profileRoute = require('./controllers/routeProfile.js');
 var widgetRoute = require('./controllers/routeWidget.js');
-var nev = require('email-verification')(mongoose);
 
 //check cpu of ur computers and split the task
 if  (cluster.isMaster)  {
@@ -59,6 +58,8 @@ app.get('/', function(req, res){res.sendFile('main.html', {root: "./view/"});});
 app.use('/user',userRoute);
 
 
+
+
  //catch 404 and forward to error handler
 /*
     app.use(function(req, res, next) {
@@ -67,26 +68,6 @@ app.use('/user',userRoute);
         next(err);
     });
 */
-nev.configure({
-    verificationURL: 'http://localhost/email-verification/${URL}',
-    persistentUserModel: User,
-    tempUserCollection: 'tempusers',
- 
-    transportOptions: {
-        service: 'Gmail',
-        auth: {
-            user: 'test',
-            pass: 'test'
-        }
-    },
-    verifyMailOptions: {
-        from: 'Do Not Reply <do_not_reply@gmail.com>',
-        subject: 'Please confirm account',
-        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
-        text: 'Please confirm your account by clicking the following link: ${URL}'
-    }
-}, function(error, options){
-});
 
 app.use(function (err, req, res, next) {
   console.error(err.stack)
