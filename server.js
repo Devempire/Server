@@ -25,7 +25,7 @@ if  (cluster.isMaster)  {
    mongoose.connect('mongodb://localhost/db', function(err) {
 
 		    //Rest UserDB
-		    mongoose.connection.collections['users'].drop();
+		    //mongoose.connection.collections['users'].drop();
 
         //Reset WidgetDB
         // mongoose.connection.collections['widgets'].drop();
