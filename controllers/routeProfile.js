@@ -5,6 +5,35 @@ var mongoose = require('mongoose');
 var User = require('../model/userdb.js');
 var crypto = require('crypto');
 var fs = require('fs');
+var nev = require('email-verification')(mongoose);
+var randtoken = require('../node_modules/email-verification/node_modules/rand-token');
+
+
+//configure for profile
+nev.configure({
+  persistentUserModel: User,
+  expirationTime: 600, // 10 minutes
+  verificationURL: 'http://localhost:8080/user/email-verification/${URL}',
+  transportOptions: {
+    service: 'Gmail',
+    auth: {
+      user: 'test@gmail.com',
+      pass: 'test'
+    }
+  },
+  verifyMailOptions: {
+        from: 'Do Not Reply <test_do_not_reply@gmail.com>',
+        subject: 'Please confirm account',
+        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
+        text: 'Please confirm your account by clicking the following link: ${URL}'
+    },
+}, function(err, options) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+});
 
 router.get('/', function(req, res, next) {
    
@@ -37,6 +66,28 @@ router.put('/updateEmail', function(req, res, next) {
         console.log(user);
         res.json(user);
     });
+});
+
+
+//user resend emailverfi url
+router.post('/resend', function (req, res, next) {
+    var email = req.body.email;
+    var URL = randtoken.generate(48);
+
+    User.update({_id:req.body._id},
+            {verification_code:URL},function(err,ok){
+                nev.sendVerificationEmail(email, URL, function(err, info) {
+                    if (err) {
+                        return res.status(404).send('ERROR: sending verification email FAILED');
+                        }
+                res.json({
+                    msg: 'An email has been sent to you. Please check it to verify your account.',
+                    info: info
+                });
+                });
+                 
+            });
+
 });
 
 router.post('/load', function(req,res,next){

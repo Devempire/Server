@@ -42,7 +42,7 @@ $(function() {
                 }
         )
         .done(function( data ) {
-		  alert("Successfully register!");
+		  alert(data.msg);
 			//trigger email verification send
 			//trigger pop up for user to verify email
 			

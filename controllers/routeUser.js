@@ -7,18 +7,19 @@ var User = require('../model/userdb.js');
 var crypto = require('crypto');
 var fs = require('fs');
 var nev = require('email-verification')(mongoose);
+var randtoken = require('../node_modules/email-verification/node_modules/rand-token');
 
 
 //configure for email verification
 nev.configure({
   persistentUserModel: User,
-  expirationTime: 1000, // 2 minutes
+  expirationTime: 600, // 10 minutes
   verificationURL: 'http://localhost:8080/user/email-verification/${URL}',
   transportOptions: {
     service: 'Gmail',
     auth: {
-      user: 'tellmeemail@gmail.com',
-      pass: 'tellmepassword'
+      user: 'testing@gmail.com',
+      pass: 'testing'
     }
   },
   verifyMailOptions: {
@@ -33,18 +34,9 @@ nev.configure({
     return;
   }
 
-  console.log('configured: ' + (typeof options === 'object'));
 });
 
-//generatetempmodel.
-nev.generateTempUserModel(User, function(err, tempUserModel) {
-  if (err) {
-    console.log(err);
-    return;
-  }
 
-  console.log('generated temp user model: ' + (typeof tempUserModel === 'function'));
-});
 
 
 router.get('/', function(req, res, next){
@@ -65,6 +57,7 @@ router.get('/show', function (req, res, next) {
 router.post('/add', function (req, res, next) {
     var key = crypto.pbkdf2Sync(req.body.password, 'salt', 10000, 512);
     var email = req.body.email;
+    var URL = randtoken.generate(48);
     User.find({'username':req.body.username}, function (err, users) {
         if (err) return next(err);
         console.log(req.body.username);
@@ -75,42 +68,25 @@ router.post('/add', function (req, res, next) {
                 password: key,
                 firstname: req.body.firstname,
                 lastname:req.body.lastname,
-                dateofbirth:req.body.birthday
-            });
-            nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
-            if (err) {
-                return res.status(404).send('ERROR: creating temp user FAILED');
-                }
+                dateofbirth:req.body.birthday,
+                verification_code:URL,
+            }).save(function ( err, user, count){
+                 if( err ) {
+                    console.log(err);
+                    return;
+                 }
 
-          // user already exists in persistent collection
-          if (existingPersistentUser) {
-            return res.json({
-              msg: 'You have already signed up and confirmed your account. Did you forget your password?'
-            });
-          }
-
-          // new user created
-          if (newTempUser) {
-            var URL = newTempUser[nev.options.URLFieldName];
-
-            nev.sendVerificationEmail(email, URL, function(err, info) {
-              if (err) {
-                return res.status(404).send('ERROR: sending verification email FAILED');
-              }
-              res.json({
-                msg: 'An email has been sent to you. Please check it to verify your account.',
-                info: info
-              });
-            });
-
-          // user already exists in temporary collection!
-          } else {
-            res.json({
-              msg: 'You have already signed up. Please check your email to verify your account.'
-            });
-          }
-        });
-
+                nev.sendVerificationEmail(email, URL, function(err, info) {
+                    if (err) {
+                        return res.status(404).send('ERROR: sending verification email FAILED');
+                        }
+                res.json({
+                    msg: 'An email has been sent to you. Please check it to verify your account.',
+                    info: info
+                });
+                });
+             
+             });
         }else{
           res.status(400);
             return next(new Error("Invalid Username"));
@@ -119,20 +95,26 @@ router.post('/add', function (req, res, next) {
 });
 
 
+
 // user accesses the link that is sent
 router.get('/email-verification/:URL', function(req, res) {
   var url = req.params.URL;
-
-  nev.confirmTempUser(url, function(err, user) {
+  User.findOne({'verification_code':url},function (err, user){
     if (user) {
+        //console.log(users);
+        User.update({_id:user._id},
+            {is_verified:true,verification_code:null},function(err,ok){
+                 res.json({
+                    msg: 'CONFIRMED!'
+                });
+            });
 
-        res.json({
-          msg: 'CONFIRMED!'
-        });
 
+       
     } else {
       return res.status(404).send('ERROR: confirming temp user FAILED');
     }
+
   });
 });
 

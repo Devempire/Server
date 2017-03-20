@@ -142,26 +142,41 @@ window.onload =function(){
 	  
 	  if( isValidEmailAddress( newemail ) ) {
         e.preventDefault();
-          
+          var email =$("#newemail").val();
           $.ajax( {
                   url:"/profile/updateEmail",
                   type:"PUT",
                   data:{    
                      "username" : $("#username").val(),
-                     "email" : $("#newemail").val()
+                     "email" : email
                    }
          }).done(function(res){
-			  $("#email").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b>" + newemail+"</b>");
+            $.post( "/profile/load",
+                {'token' :token
+
+                }
+              )
+              .done(function(data) {
+                $.post( "/profile/resend",
+                {_id :data._id,
+                  email:email
+
+                }
+              ).done(function(res){
+                $("#email").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b>" + newemail+"</b>");
               $("#email2").text(newemail);
               $("#email3").text("Current email: "+newemail);
-			  $('#emailmsg').html('<center>Email successfully updated</center>');
-			  $("#emailmsg").css("padding:30px;");
-		      $("#emailmsg").removeClass('bg-warning').addClass('bg-success');
-		      $("#emailmsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );
-			  $('#newemail').val('');
-			  $('#newemail').focusout();
-			  $('[data-toggle="tooltip"]').tooltip();
-				//update email field
+              $('#emailmsg').html('<center>Email successfully updated</center>');
+              $("#emailmsg").css("padding:30px;");
+              $("#emailmsg").removeClass('bg-warning').addClass('bg-success');
+              $("#emailmsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );
+              $('#newemail').val('');
+              $('#newemail').focusout();
+              $('[data-toggle="tooltip"]').tooltip();
+              //update email field
+              });
+              });
+			  
 			  
           }).fail(function(d){
 			  $('#emailmsg').html('<center>Email already registered with another user</center>');
