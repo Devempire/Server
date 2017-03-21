@@ -75,9 +75,11 @@ router.post('/resend', function (req, res, next) {
     var URL = randtoken.generate(48);
 
     User.update({_id:req.body._id},
-            {verification_code:URL},function(err,ok){
+            {verification_code:URL,
+            is_verified:false},function(err,ok){
                 nev.sendVerificationEmail(email, URL, function(err, info) {
                     if (err) {
+                        console.log(err);
                         return res.status(404).send('ERROR: sending verification email FAILED');
                         }
                 res.json({

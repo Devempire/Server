@@ -189,6 +189,7 @@ router.get('/profile/:id/info',function(req,res,next){
             aboutme:user.aboutme,
             layout:user.layout,
             data:user.data,
+            is_verified:user.is_verified
         });
     });
 });
