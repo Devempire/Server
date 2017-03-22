@@ -15,10 +15,14 @@ nev.configure({
   expirationTime: 600, // 10 minutes
   verificationURL: 'http://localhost:8080/user/email-verification/${URL}',
   transportOptions: {
-    service: 'Gmail',
-    auth: {
-      user: 'test@gmail.com',
-      pass: 'test'
+    from: 'noreply@gamempire.net',
+    options: {
+        host: 'smtp.zoho.com',
+        port: 465,
+        auth: {
+            user: 'noreply@gamempire.net',
+            pass: 'gamempiredevempire'
+        }
     }
   },
   verifyMailOptions: {
