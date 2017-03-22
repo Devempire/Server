@@ -13,20 +13,23 @@ var randtoken = require('../node_modules/email-verification/node_modules/rand-to
 nev.configure({
   persistentUserModel: User,
   expirationTime: 600, // 10 minutes
-  verificationURL: 'http://localhost:8080/user/email-verification/${URL}',
+  verificationURL: 'http://gamempire.net/user/email-verification/${URL}',
   transportOptions: {
-    from: 'noreply@gamempire.net',
-    options: {
+
         host: 'smtp.zoho.com',
         port: 465,
         auth: {
             user: 'noreply@gamempire.net',
             pass: 'gamempiredevempire'
+        },
+        secure: true,
+        tls: {
+        rejectUnauthorized: false
         }
-    }
+
   },
   verifyMailOptions: {
-        from: 'Do Not Reply <test_do_not_reply@gmail.com>',
+        from: 'Do Not Reply <noreply@gamempire.net>',
         subject: 'Please confirm account',
         html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
         text: 'Please confirm your account by clicking the following link: ${URL}'
