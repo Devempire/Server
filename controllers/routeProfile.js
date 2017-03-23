@@ -7,7 +7,7 @@ var crypto = require('crypto');
 var fs = require('fs');
 var nev = require('email-verification')(mongoose);
 var randtoken = require('../node_modules/email-verification/node_modules/rand-token');
-
+var html =fs.readFileSync("./view/verifyemail.html", encoding="utf8");
 
 //configure for profile
 nev.configure({
@@ -29,9 +29,9 @@ nev.configure({
 
   },
   verifyMailOptions: {
-        from: 'Do Not Reply <noreply@gamempire.net>',
-        subject: 'Please confirm account',
-        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
+        from: 'Gamempire <noreply@gamempire.net>',
+        subject: 'Welcome! Confirm your email address',
+        html: html,
         text: 'Please confirm your account by clicking the following link: ${URL}'
     },
 }, function(err, options) {
