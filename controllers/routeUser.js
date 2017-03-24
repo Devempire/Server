@@ -8,12 +8,16 @@ var crypto = require('crypto');
 var fs = require('fs');
 var nev = require('email-verification')(mongoose);
 var randtoken = require('../node_modules/email-verification/node_modules/rand-token');
+<<<<<<< HEAD
+=======
+var html =fs.readFileSync("./view/verifyemail.html", encoding="utf8");
+>>>>>>> 7a3d681f4e3acf4a0f906246eeac3c2b1d8cd2d5
 
 //configure for email verification
 nev.configure({
   persistentUserModel: User,
   expirationTime: 600, // 10 minutes
-  verificationURL: 'http://gamempire.net/user/email-verification/${URL}',
+  verificationURL: 'http://gamename.net/user/email-verification/${URL}',
   transportOptions: {
 
         host: 'smtp.zoho.com',
@@ -26,12 +30,12 @@ nev.configure({
         tls: {
         rejectUnauthorized: false
         }
- 
+
   },
   verifyMailOptions: {
-        from: 'Do Not Reply <noreply@gamempire.net>',
-        subject: 'Please confirm account',
-        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
+        from: 'Gamempire <noreply@gamempire.net>',
+        subject: 'Welcome! Confirm your email address',
+        html: html,
         text: 'Please confirm your account by clicking the following link: ${URL}'
     },
 }, function(err, options) {
@@ -88,7 +92,7 @@ router.post('/add', function (req, res, next) {
                     info: info
                 });
                 });
-             
+
              });
         }else{
           res.status(400);
@@ -105,10 +109,16 @@ router.get('/email-verification/:URL', function(req, res) {
         //console.log(users);
         User.update({_id:user._id},
             {is_verified:true,verification_code:null},function(err,ok){
-                 res.json({
-                    msg: 'CONFIRMED!'
-                });
+                 res.sendFile(
+                    'confirm.html', {root: "view/"}
+                );
             });
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 7a3d681f4e3acf4a0f906246eeac3c2b1d8cd2d5
     } else {
       return res.status(404).send('ERROR: confirming temp user FAILED');
     }
