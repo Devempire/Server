@@ -8,10 +8,7 @@ var crypto = require('crypto');
 var fs = require('fs');
 var nev = require('email-verification')(mongoose);
 var randtoken = require('../node_modules/email-verification/node_modules/rand-token');
-<<<<<<< HEAD
-=======
-var html =fs.readFileSync("./view/verifyemail.html", encoding="utf8");
->>>>>>> 7a3d681f4e3acf4a0f906246eeac3c2b1d8cd2d5
+var html = fs.readFileSync("./view/verifyemail.html", encoding="utf8");
 
 //configure for email verification
 nev.configure({
@@ -113,12 +110,6 @@ router.get('/email-verification/:URL', function(req, res) {
                     'confirm.html', {root: "view/"}
                 );
             });
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 7a3d681f4e3acf4a0f906246eeac3c2b1d8cd2d5
     } else {
       return res.status(404).send('ERROR: confirming temp user FAILED');
     }
