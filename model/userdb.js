@@ -15,8 +15,9 @@ var UserSchema = mongoose.Schema({
     widgets:[{widgetid: String}],
     friends: {type: Array},
     data:Object,
-    mic: {type: Boolean, default: false }, //default no mic
-    layout:{type:Object,default:{}}
+    mic: {type: Boolean, default: false}, //default no mic
+    layout:{type:Object, default:{}},
+    privacy: {type: Object, default: {firstname:true, lastname:true, username:false, avatar:false, email:true, aboutme:false, dateofbirth:true}}
 });
 
 var User = mongoose.model('User', UserSchema);

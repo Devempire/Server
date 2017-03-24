@@ -9,7 +9,6 @@ var fs = require('fs');
 var nev = require('email-verification')(mongoose);
 var randtoken = require('../node_modules/email-verification/node_modules/rand-token');
 
-
 //configure for email verification
 nev.configure({
   persistentUserModel: User,
@@ -43,9 +42,6 @@ nev.configure({
 
 });
 
-
-
-
 router.get('/', function(req, res, next){
 	res.sendFile('login.html', {root: "view/"});
 
@@ -69,7 +65,7 @@ router.post('/add', function (req, res, next) {
         if (err) return next(err);
         console.log(req.body.username);
         if (users[0] == null){
-            var newUser= new User({
+            var newUser = new User({
                 username: req.body.username,
                 email: req.body.email,
                 password: key,
@@ -101,8 +97,6 @@ router.post('/add', function (req, res, next) {
     });
 });
 
-
-
 // user accesses the link that is sent
 router.get('/email-verification/:URL', function(req, res) {
   var url = req.params.URL;
@@ -115,9 +109,6 @@ router.get('/email-verification/:URL', function(req, res) {
                     msg: 'CONFIRMED!'
                 });
             });
-
-
-       
     } else {
       return res.status(404).send('ERROR: confirming temp user FAILED');
     }
@@ -180,15 +171,15 @@ router.post('/load', function(req,res,next){
 
 });
 
-//get certerain user info
+//get certain user info
 router.get('/profile/:id/info',function(req,res,next){
     User.findById(req.params.id, function(err, user){
     if (err) return next(err);
 
     res.send({
-            username : user.username,
+            username: user.username,
             firstname: user.firstname,
-            lastname :user.lastname,
+            lastname:user.lastname,
             email:user.email,
             dateofbirth: user.dateofbirth,
             widgets:user.widgets,
@@ -196,7 +187,8 @@ router.get('/profile/:id/info',function(req,res,next){
             aboutme:user.aboutme,
             layout:user.layout,
             data:user.data,
-            is_verified:user.is_verified
+            is_verified:user.is_verified,
+            privacy: user.privacy
         });
     });
 });
@@ -366,5 +358,16 @@ router.put('/profile/dataupload',function(req,res,next){
          res.json(user);
      });
  });
+
+router.put('/profile/toggleFirstName', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.firstname": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("firstname's publicity is updated");
+            res.json(user);
+        });
+});
 
 module.exports = router;
