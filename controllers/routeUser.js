@@ -366,7 +366,62 @@ router.put('/profile/toggleFirstName', function(req,res,next) {
         function (err, user) {
             if (err) return next(err);
 
-            console.log("firstname's publicity is updated");
+            console.log("firstname's privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/toggleLastName', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.lastname": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("lastname's privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/toggleBirthday', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.dateofbirth": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("birthday's privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/toggleEmail', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.email": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("email's privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/toggleAboutMe', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.aboutme": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("aboutme's privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/toggleAvatar', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.avatar": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("avatar's privacy is updated");
             res.json(user);
         });
 });
