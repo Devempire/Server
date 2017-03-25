@@ -119,7 +119,7 @@ router.get('/email-verification/:URL', function(req, res) {
 
 
     } else {
-      return res.status(404).send('ERROR: confirming temp user FAILED');
+        res.sendFile('login.html', {root: "view/"});
     }
 
   });
