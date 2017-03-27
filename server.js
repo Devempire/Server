@@ -14,6 +14,7 @@ var port = process.env.PORT || 8080;
 var userRoute = require('./controllers/routeUser.js');
 var profileRoute = require('./controllers/routeProfile.js');
 var widgetRoute = require('./controllers/routeWidget.js');
+var friendRoute = require('./controllers/routeFriend.js');
 
 //check cpu of ur computers and split the task
 if  (cluster.isMaster)  {
@@ -55,7 +56,8 @@ app.get('/privacy/', function(req, res){if (!req.url.endsWith('/')) {res.redirec
 app.get('/terms/', function(req, res){if (!req.url.endsWith('/')) {res.redirect(301, req.url + '/')}res.sendFile('terms.html', {root: "./view/"});});
 app.get('/contact/', function(req, res){if (!req.url.endsWith('/')) {res.redirect(301, req.url + '/')}res.sendFile('feedback.html', {root: "./view/"});});
 app.get('/', function(req, res){res.sendFile('main.html', {root: "./view/"});});
-app.use('/user',userRoute);
+//app.use('/user',userRoute);
+app.use('/friend',friendRoute);
 
 
 

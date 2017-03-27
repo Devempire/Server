@@ -14,7 +14,7 @@ var html = fs.readFileSync("./view/verifyemail.html", encoding="utf8");
 nev.configure({
   persistentUserModel: User,
   expirationTime: 600, // 10 minutes
-  verificationURL: 'http://gamename.net/user/email-verification/${URL}',
+  verificationURL: 'http://localhost:8080/login/email-verification/${URL}',
   transportOptions: {
 
         host: 'smtp.zoho.com',
