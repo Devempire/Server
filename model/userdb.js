@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var friends = require("mongoose-friends")
 
+
 var UserSchema = mongoose.Schema({
     privilege_level: {type: String, default:'0'}, //0 regular, 1 moderator, 2 admin
     firstname: String,
@@ -21,7 +22,7 @@ var UserSchema = mongoose.Schema({
     privacy: {type: Object, default: {firstname:true, lastname:true, username:false, avatar:false, email:true, aboutme:false, dateofbirth:true}}
 });
 
-UserSchema.plugin(friends({pathName: "friends"}));
+UserSchema.plugin(friends({pathName: "gamer"}));
 
 var User = mongoose.model('User', UserSchema);
 

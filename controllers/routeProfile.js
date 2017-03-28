@@ -19,8 +19,8 @@ nev.configure({
         host: 'smtp.zoho.com',
         port: 465,
         auth: {
-            user: 'noreply@gamempire.net',
-            pass: 'gamempiredevempire'
+            user: 'test',
+            pass: 'test'
         },
         secure: true,
         tls: {
