@@ -145,7 +145,7 @@ router.get('/:id/info',function(req,res,next){
                             lastname:user.lastname,
                             firstname:user.firstname,
                             avatar: user.avatar,
-
+                            privacy: user.privacy
                 });
     });
 })
