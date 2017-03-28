@@ -14,14 +14,14 @@ var html = fs.readFileSync("./view/verifyemail.html", encoding="utf8");
 nev.configure({
   persistentUserModel: User,
   expirationTime: 600, // 10 minutes
-  verificationURL: 'http://localhost:8080/login/email-verification/${URL}',
+  verificationURL: 'http://localhost:80/login/email-verification/${URL}',
   transportOptions: {
 
         host: 'smtp.zoho.com',
         port: 465,
         auth: {
-            user: 'noreply@gamempire.net',
-            pass: 'gamempiredevempire'
+            user: 'testi',
+            pass: 'testi'
         },
         secure: true,
         tls: {
@@ -82,6 +82,7 @@ router.post('/add', function (req, res, next) {
 
                 nev.sendVerificationEmail(email, URL, function(err, info) {
                     if (err) {
+                        console.log(err);
                         return res.status(404).send('ERROR: sending verification email FAILED');
                         }
                 res.json({
@@ -172,7 +173,7 @@ router.post('/load', function(req,res,next){
 
 });
 
-//get certain user info
+//get certain user info by id
 router.get('/profile/:id/info',function(req,res,next){
     User.findById(req.params.id, function(err, user){
     if (err) return next(err);
@@ -193,6 +194,8 @@ router.get('/profile/:id/info',function(req,res,next){
         });
     });
 });
+
+
 
  //update user profile
  router.put('/profile/update',function(req,res,next){
