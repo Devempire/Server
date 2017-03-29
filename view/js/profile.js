@@ -1,6 +1,6 @@
 var cookie =  document.cookie.split(';')
-//api_server = "http://gamempire.net";
-api_server = "http://localhost:8080";
+api_server = "http://gamempire.net";
+//api_server = "http://localhost:8080";
 var token;
     //get token from cookie
     for (var i = 0;i<cookie.length; i++) {
