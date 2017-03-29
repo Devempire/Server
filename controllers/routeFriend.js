@@ -47,7 +47,7 @@ router.post('/info',function(req,res,next){
 
  //show friendship of user1 with id 
  router.put('/removeFriend',function(req,res,next){
- 	User.removeFriend(req.body.user1, req.body.user2, function(friend,cb){
+ 	User.removeFriend(req.body.user2, req.body.user1, function(friend,cb){
     	
     	console.log(cb);
 

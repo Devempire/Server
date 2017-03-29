@@ -20,8 +20,8 @@ nev.configure({
         host: 'smtp.zoho.com',
         port: 465,
         auth: {
-            user: 'testi',
-            pass: 'testi'
+            user: '1',
+            pass: '1'
         },
         secure: true,
         tls: {
