@@ -22,34 +22,52 @@ window.onload =function(){
             //get user profile by user id
           $.get("/profile/"+data._id +"/info").done(function(d){
             if (d.avatar) {
-        
-            var avatar = 'http://gamempire.net/img/avatars/'+data._id+'.jpg?'+ new Date().getTime()+'';
-            $("#avatar").attr("src",avatar);
+              var avatar = 'http://gamempire.net/img/avatars/'+data._id+'.jpg?'+ new Date().getTime()+'';
+              $("#avatar").attr("src",avatar);
             }
             window.firstname = d.firstname;
             window.lastname = d.lastname;
             window.dateofbirth = d.dateofbirth;
            
             $("#username").val(d.username.toLowerCase());
-			$("#username-display").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Username: <b>"+d.username.toLowerCase()+"</b>");
-            $("#name").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Name: <b>"+d.firstname+" "+d.lastname+"</b>");
-			$("#fn").val(d.firstname);
-			$("#ln").val(d.lastname);
-			$("#ln").focusin();
-			$("#fn").focusin();
-			$("#birth").val(d.dateofbirth);
-			//$("#birth").focusin();
-            $("#email").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b>" + d.email+"</b>");
-            $("#email2").text(d.email);
-            $("#email3").text("Current email: "+d.email);
-            $("#birthday").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Birthdate: <b>"+d.dateofbirth+"</b>");
-			
-			$("#member").html('<button class="red darken-3 btn dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> '+d.username.toLowerCase()+'</button><div class="dropdown-menu dropdown-dark" aria-labelledby="dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"><a class="dropdown-item" onclick="profile()">My Profile</a><hr style="margin-bottom: 0px; margin-top: 0px;"><a class="dropdown-item" onclick="edit()">Edit Profile</a><a class="dropdown-item" onclick="changepw()">Change Password</a><a class="dropdown-item" onclick="changeEmail()">Change Email</a><hr style="margin-bottom: 0px; margin-top: 0px;"><a class="dropdown-item" id="logout"  onclick="logout()">Log out</a></div>');
-			$("#member").css({"transform": "translate(0px, 0%)", "position": "relative", "z-index": "9999", "font-family": "\'Open Sans\'", "color": "white"});
-			$("#card-prof").css("display", "block");
-			$('[data-toggle="tooltip"]').tooltip();
-        });
+			      $("#username-display").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Username: <b>"+d.username.toLowerCase()+"</b>");
+            if (d.privacy.firstname == "false") {
+              $("#fname").html("<i class='fa fa-eye' id='publicFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Public'></i> First Name: <b>"+d.firstname+"</b>");
+              $("#fn").val(d.firstname);
+              $("#fn").focusin();
+            } else {
+              $("#fname").html("<i class='fa fa-eye-slash' id='privateFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Private'></i> First Name: <b></b>");
+            }
 
+            if (d.privacy.lastname == "false") {
+              $("#lname").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Last Name: <b>"+d.lastname+"</b>");
+              $("#ln").val(d.lastname);
+              $("#ln").focusin();
+            } else {
+              $("#lname").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Last Name: <b></b>");
+            }
+            
+            if (d.privacy.dateofbirth == "false") {
+              $("#birthday").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Birthday: <b>"+d.dateofbirth+"</b>");
+              $("#birth").val(d.dateofbirth);
+              //$("#birth").focusin();
+            } else {
+              $("#birthday").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Birthday: <b></b>");
+            }
+			      
+			      if (d.privacy.email == "false") {
+              $("#email").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Email: <b>"+d.email+"</b>");
+              $("#email2").text(d.email);
+              $("#email3").text("Current email: "+d.email);
+            } else {
+              $("#email").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b></b>");
+            }
+			
+      			$("#member").html('<button class="red darken-3 btn dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> '+d.username.toLowerCase()+'</button><div class="dropdown-menu dropdown-dark" aria-labelledby="dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"><a class="dropdown-item" onclick="profile()">My Profile</a><hr style="margin-bottom: 0px; margin-top: 0px;"><a class="dropdown-item" onclick="edit()">Edit Profile</a><a class="dropdown-item" onclick="changepw()">Change Password</a><a class="dropdown-item" onclick="changeEmail()">Change Email</a><hr style="margin-bottom: 0px; margin-top: 0px;"><a class="dropdown-item" id="logout"  onclick="logout()">Log out</a></div>');
+      			$("#member").css({"transform": "translate(0px, 0%)", "position": "relative", "z-index": "9999", "font-family": "\'Open Sans\'", "color": "white"});
+      			$("#card-prof").css("display", "block");
+      			$('[data-toggle="tooltip"]').tooltip();
+          });
         })
         .fail(function() {
 			/*
@@ -244,7 +262,7 @@ window.onload =function(){
 		      $("#passmsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );;
           });
 		}else{
-		  //password not valid 6 character lenght
+		  //password not valid 6 character length
 		   $('#passmsg').html('<center>New password must be atleast 6 character long</center>');
 		   $("#newpw").focus();
 		   $("#passmsg").css("padding:30px;");
@@ -252,13 +270,40 @@ window.onload =function(){
 		   $("#passmsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );
 	  }
        });
-
-      
-
-        
-
     }
 
+// function toggleFName(){
+//   // $(document).click(function(event) {
+//   //   console.log(event.target);
+//   // });
+//   var privacyUpdate;
+//   if (event.target.id == 'privateFName') {
+//     privacyUpdate = false;
+//   else if (event.target.id == 'publicFName') {
+//     privacyUpdate = true;
+//   }
+//     $("#fname").html("<i class='fa fa-eye' id='publicFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Public'></i> First Name: <b>"+window.firstname+"</b>");
+//     $("#fn").val(window.firstname);
+//     $("#fn").focusin();
+//     $.post(api_server+"/login/load",
+//          {
+//              'token' :token
+//          }).done((d) => {
+//            $.ajax({
+//                    url:api_server+"/login/profile/toggleFirstName",
+//                    type:"PUT",
+//                    data:{
+//                        _id:d._id,
+//                        privacy:privacyUpdate
+//                    }
+//                }).done((res)=>{
+//                    console.log("firstname's privacy is updated");
+//                }).fail((err)=>{
+//                    console.log("failed");
+//                });
+//            });
+//   }
+// }
 
 function edit(){
 		  profile();
