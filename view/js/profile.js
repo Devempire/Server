@@ -1,4 +1,6 @@
 var cookie =  document.cookie.split(';')
+//api_server = "http://gamempire.net";
+api_server = "http://localhost:8080";
 var token;
     //get token from cookie
     for (var i = 0;i<cookie.length; i++) {
@@ -28,39 +30,41 @@ window.onload =function(){
             window.firstname = d.firstname;
             window.lastname = d.lastname;
             window.dateofbirth = d.dateofbirth;
+            window.email = d.email;
            
             $("#username").val(d.username.toLowerCase());
-			      $("#username-display").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Username: <b>"+d.username.toLowerCase()+"</b>");
+			      $("#username-display").html("<i class='fa fa-eye' title='Public'></i> Username: <b>"+d.username.toLowerCase()+"</b>");
+
             if (d.privacy.firstname == "false") {
-              $("#fname").html("<i class='fa fa-eye' id='publicFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Public'></i> First Name: <b>"+d.firstname+"</b>");
+              $("#fname").html("<i class='fa fa-eye' id='publicFName' onclick='toggleFName()' title='Public'></i> First Name: <b>"+d.firstname+"</b>");
               $("#fn").val(d.firstname);
               $("#fn").focusin();
             } else {
-              $("#fname").html("<i class='fa fa-eye-slash' id='privateFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Private'></i> First Name: <b></b>");
+              $("#fname").html("<i class='fa fa-eye-slash' id='privateFName' onclick='toggleFName()' title='Private'></i> First Name: <b></b>");
             }
 
             if (d.privacy.lastname == "false") {
-              $("#lname").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Last Name: <b>"+d.lastname+"</b>");
+              $("#lname").html("<i class='fa fa-eye' id='publicLName' onclick='toggleLName()' title='Public'></i> Last Name: <b>"+d.lastname+"</b>");
               $("#ln").val(d.lastname);
               $("#ln").focusin();
             } else {
-              $("#lname").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Last Name: <b></b>");
+              $("#lname").html("<i class='fa fa-eye-slash' id='privateLName' onclick='toggleLName()' title='Private'></i> Last Name: <b></b>");
             }
-            
-            if (d.privacy.dateofbirth == "false") {
-              $("#birthday").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Birthday: <b>"+d.dateofbirth+"</b>");
-              $("#birth").val(d.dateofbirth);
-              //$("#birth").focusin();
-            } else {
-              $("#birthday").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Birthday: <b></b>");
-            }
-			      
-			      if (d.privacy.email == "false") {
-              $("#email").html("<i class='fa fa-eye' data-toggle='tooltip' data-placement='top' title='Public'></i> Email: <b>"+d.email+"</b>");
+
+            if (d.privacy.email == "false") {
+              $("#email").html("<i class='fa fa-eye' id='publicEmail' onclick='toggleEmail()' title='Public'></i> Email: <b>"+d.email+"</b>");
               $("#email2").text(d.email);
               $("#email3").text("Current email: "+d.email);
             } else {
-              $("#email").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b></b>");
+              $("#email").html("<i class='fa fa-eye-slash' id='privateEmail' onclick='toggleEmail()' title='Private'></i> Email: <b></b>");
+            }
+            
+            if (d.privacy.dateofbirth == "false") {
+              $("#birthday").html("<i class='fa fa-eye' id='publicBDay' onclick='toggleBDay()' title='Public'></i> Birthday: <b>"+d.dateofbirth+"</b>");
+              $("#birth").val(d.dateofbirth);
+              //$("#birth").focusin();
+            } else {
+              $("#birthday").html("<i class='fa fa-eye-slash' id='privateBDay' onclick='toggleBDay()' title='Private'></i> Birthday: <b></b>");
             }
 			
       			$("#member").html('<button class="red darken-3 btn dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> '+d.username.toLowerCase()+'</button><div class="dropdown-menu dropdown-dark" aria-labelledby="dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"><a class="dropdown-item" onclick="profile()">My Profile</a><hr style="margin-bottom: 0px; margin-top: 0px;"><a class="dropdown-item" onclick="edit()">Edit Profile</a><a class="dropdown-item" onclick="changepw()">Change Password</a><a class="dropdown-item" onclick="changeEmail()">Change Email</a><hr style="margin-bottom: 0px; margin-top: 0px;"><a class="dropdown-item" id="logout"  onclick="logout()">Log out</a></div>');
@@ -134,7 +138,7 @@ window.onload =function(){
       $("#profilemsg").css("padding:30px;");
       $("#profilemsg").removeClass('bg-warning').addClass('bg-success');
       $("#profilemsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );
-	   $('[data-toggle="tooltip"]').tooltip();
+	    $('[data-toggle="tooltip"]').tooltip();
 
           //window.location.href='/profile/';
           }).fail(function(d){
@@ -182,16 +186,16 @@ window.onload =function(){
                 }
               ).done(function(res){
                 $("#email").html("<i class='fa fa-eye-slash' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b>" + newemail+"</b>");
-              $("#email2").text(newemail);
-              $("#email3").text("Current email: "+newemail);
-              $('#emailmsg').html('<center>Email successfully updated</center>');
-              $("#emailmsg").css("padding:30px;");
-              $("#emailmsg").removeClass('bg-warning').addClass('bg-success');
-              $("#emailmsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );
-              $('#newemail').val('');
-              $('#newemail').focusout();
-              $('[data-toggle="tooltip"]').tooltip();
-              //update email field
+                $("#email2").text(newemail);
+                $("#email3").text("Current email: "+newemail);
+                $('#emailmsg').html('<center>Email successfully updated</center>');
+                $("#emailmsg").css("padding:30px;");
+                $("#emailmsg").removeClass('bg-warning').addClass('bg-success');
+                $("#emailmsg").effect( "shake", { direction: "up", times: 2, distance: 30}, 500 );
+                $('#newemail').val('');
+                $('#newemail').focusout();
+                $('[data-toggle="tooltip"]').tooltip();
+                //update email field
               });
               });
 			  
@@ -272,38 +276,134 @@ window.onload =function(){
        });
     }
 
-// function toggleFName(){
-//   // $(document).click(function(event) {
-//   //   console.log(event.target);
-//   // });
-//   var privacyUpdate;
-//   if (event.target.id == 'privateFName') {
-//     privacyUpdate = false;
-//   else if (event.target.id == 'publicFName') {
-//     privacyUpdate = true;
-//   }
-//     $("#fname").html("<i class='fa fa-eye' id='publicFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Public'></i> First Name: <b>"+window.firstname+"</b>");
-//     $("#fn").val(window.firstname);
-//     $("#fn").focusin();
-//     $.post(api_server+"/login/load",
-//          {
-//              'token' :token
-//          }).done((d) => {
-//            $.ajax({
-//                    url:api_server+"/login/profile/toggleFirstName",
-//                    type:"PUT",
-//                    data:{
-//                        _id:d._id,
-//                        privacy:privacyUpdate
-//                    }
-//                }).done((res)=>{
-//                    console.log("firstname's privacy is updated");
-//                }).fail((err)=>{
-//                    console.log("failed");
-//                });
-//            });
-//   }
-// }
+function toggleFName(){
+  var privacyUpdate;
+  if (event.target.id == 'privateFName') {
+    privacyUpdate = false;
+    $("#fname").html("<i class='fa fa-eye' id='publicFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Public'></i> First Name: <b>"+window.firstname+"</b>");
+    $("#fn").val(window.firstname);
+    //$("#fn").focusin();
+  } else if (event.target.id == 'publicFName') {
+    privacyUpdate = true;
+    $("#fname").html("<i class='fa fa-eye-slash' id='privateFName' onclick='toggleFName()' data-toggle='tooltip' data-placement='top' title='Private'></i> First Name: <b></b>");
+    $("#fn").val("");
+  }
+
+  $.post(api_server+"/login/load",
+       {
+           'token' :token
+       }).done((d) => {
+         $.ajax({
+                 url:api_server+"/login/profile/toggleFirstName",
+                 type:"PUT",
+                 data:{
+                     _id:d._id,
+                     privacy:privacyUpdate
+                 }
+             }).done((res)=>{
+                 console.log("firstname's privacy is updated");
+             }).fail((err)=>{
+                 console.log("failed");
+             });
+         });
+}
+
+function toggleLName(){
+  var privacyUpdate;
+  if (event.target.id == 'privateLName') {
+    privacyUpdate = false;
+    $("#lname").html("<i class='fa fa-eye' id='publicLName' onclick='toggleLName()' data-toggle='tooltip' data-placement='top' title='Public'></i> Last Name: <b>"+window.lastname+"</b>");
+    $("#ln").val(window.lastname);
+    //$("#ln").focusin();
+  } else if (event.target.id == 'publicLName') {
+    privacyUpdate = true;
+    $("#lname").html("<i class='fa fa-eye-slash' id='privateLName' onclick='toggleLName()' data-toggle='tooltip' data-placement='top' title='Private'></i> Last Name: <b></b>");
+    $("#ln").val("");
+  }
+
+  $.post(api_server+"/login/load",
+       {
+           'token' :token
+       }).done((d) => {
+         $.ajax({
+                 url:api_server+"/login/profile/toggleLastName",
+                 type:"PUT",
+                 data:{
+                     _id:d._id,
+                     privacy:privacyUpdate
+                 }
+             }).done((res)=>{
+                 console.log("lastname's privacy is updated");
+             }).fail((err)=>{
+                 console.log("failed");
+             });
+         });
+}
+
+function toggleEmail(){
+  var privacyUpdate;
+  if (event.target.id == 'privateEmail') {
+    privacyUpdate = false;
+    $("#email").html("<i class='fa fa-eye' id='publicEmail' onclick='toggleEmail()' data-toggle='tooltip' data-placement='top' title='Public'></i> Email: <b>"+window.email+"</b>");
+    $("#email2").text(window.email);
+    $("#email3").text("Current email: "+window.email);
+  } else if (event.target.id == 'publicEmail') {
+    privacyUpdate = true;
+    $("#email").html("<i class='fa fa-eye-slash' id='privateEmail' onclick='toggleEmail()' data-toggle='tooltip' data-placement='top' title='Private'></i> Email: <b></b>");
+    $("#email2").text("");
+    $("#email3").text("");
+  }
+
+  $.post(api_server+"/login/load",
+       {
+           'token' :token
+       }).done((d) => {
+         $.ajax({
+                 url:api_server+"/login/profile/toggleEmail",
+                 type:"PUT",
+                 data:{
+                     _id:d._id,
+                     privacy:privacyUpdate
+                 }
+             }).done((res)=>{
+                 console.log("email's privacy is updated");
+             }).fail((err)=>{
+                 console.log("failed");
+             });
+         });
+}
+
+function toggleBDay(){
+  var privacyUpdate;
+  if (event.target.id == 'privateBDay') {
+    privacyUpdate = false;
+    $("#birthday").html("<i class='fa fa-eye' id='publicBDay' onclick='toggleBDay()' data-toggle='tooltip' data-placement='top' title='Public'></i> Birthday: <b>"+window.dateofbirth+"</b>");
+    $("#birth").val(window.dateofbirth);
+    //$("#birth").focusin();
+  } else if (event.target.id == 'publicBDay') {
+    privacyUpdate = true;
+    $("#birthday").html("<i class='fa fa-eye-slash' id='privateBDay' onclick='toggleBDay()' data-toggle='tooltip' data-placement='top' title='Private'></i> Birthday: <b></b>");
+    $("#birth").val("");
+  }
+
+  $.post(api_server+"/login/load",
+       {
+           'token' :token
+       }).done((d) => {
+         $.ajax({
+                 url:api_server+"/login/profile/toggleBirthday",
+                 type:"PUT",
+                 data:{
+                     _id:d._id,
+                     privacy:privacyUpdate
+                 }
+             }).done((res)=>{
+                 console.log("birthday's privacy is updated");
+             }).fail((err)=>{
+                 console.log("failed");
+             });
+         });
+}
 
 function edit(){
 		  profile();
