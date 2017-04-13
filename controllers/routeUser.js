@@ -14,14 +14,14 @@ var html = fs.readFileSync("./view/verifyemail.html", encoding="utf8");
 nev.configure({
   persistentUserModel: User,
   expirationTime: 600, // 10 minutes
-  verificationURL: 'http://localhost:8080/login/email-verification/${URL}',
+  verificationURL: 'http://gamempire.net/login/email-verification/${URL}',
   transportOptions: {
 
-        host: 'smtp.zoho.com',
-        port: 465,
+        host: 'XXX',
+        port: XXX,
         auth: {
-            user: '1',
-            pass: '1'
+            user:'XXX',
+            pass: 'XXX'
         },
         secure: true,
         tls: {
@@ -352,16 +352,21 @@ router.put("/profile/deleteAvatar",function(req,res,next){
         console.log('Image removed.');
     });
 });
+
+
 //update data for notepad for user
 router.put('/profile/dataupload',function(req,res,next){
      User.update( { _id:req.body._id},
-       {data:req.body.data}, function (err, user) {
+      {"data": [{ "id": [{"ids": req.body.ref}, {"dat": req.body.data}]}]},
+       function (err, user) {
          if (err) return next(err);
 
          console.log("data added");
          res.json(user);
      });
  });
+
+
 
 router.put('/profile/toggleFirstName', function(req,res,next) {
     User.update( { _id:req.body._id},
