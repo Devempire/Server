@@ -13,14 +13,14 @@ var html =fs.readFileSync("./view/verifyemail.html", encoding="utf8");
 nev.configure({
   persistentUserModel: User,
   expirationTime: 600, // 10 minutes
-  verificationURL: 'http://localhost:8080/login/email-verification/${URL}',
+  verificationURL: 'http://gamempire.net/login/email-verification/${URL}',
   transportOptions: {
 
-        host: 'smtp.zoho.com',
-        port: 465,
+        host: 'xxx',
+        port: xxx,
         auth: {
-            user: '1',
-            pass: '1'
+            user:'xxx',
+            pass: 'xxx'
         },
         secure: true,
         tls: {
