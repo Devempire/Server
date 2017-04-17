@@ -17,11 +17,11 @@ nev.configure({
   verificationURL: 'http://gamempire.net/login/email-verification/${URL}',
   transportOptions: {
 
-        host: 'xxx',
-        port: xxx,
+        host: 'XXX',
+        port: XXX,
         auth: {
-            user:'xxx',
-            pass: 'xxx'
+            user:'XXX',
+            pass: 'XXX'
         },
         secure: true,
         tls: {
