@@ -18,7 +18,8 @@ var UserSchema = mongoose.Schema({
     data:Object,
     mic: {type: Boolean, default: false}, //default no mic
     layout:{type:Object, default:{}},
-    privacy: {type: Object, default: {firstname:true, lastname:true, username:false, avatar:false, email:true, aboutme:false, dateofbirth:true}}
+    privacy: {type: Object, default: {firstname:true, lastname:true, username:false, avatar:false, email:true, aboutme:false, dateofbirth:true, compspecs:false}},
+    comp_specs: {type: Object, default: {cpu:"", gpu:"", harddrive:"", keyboard:"", mouse:""}}
 });
 
 UserSchema.plugin(friends({pathName: "gamer"}));

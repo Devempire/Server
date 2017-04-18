@@ -190,7 +190,8 @@ router.get('/profile/:id/info',function(req,res,next){
             layout:user.layout,
             data:user.data,
             is_verified:user.is_verified,
-            privacy: user.privacy
+            privacy: user.privacy,
+            comp_specs: user.comp_specs
         });
     });
 });
@@ -430,6 +431,32 @@ router.put('/profile/toggleAvatar', function(req,res,next) {
             if (err) return next(err);
 
             console.log("avatar's privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/toggleCompSpecs', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "privacy.compspecs": req.body.privacy } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("comp specs privacy is updated");
+            res.json(user);
+        });
+});
+
+router.put('/profile/saveCompSpecs', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        { $set: { "comp_specs.cpu": req.body.cpu,
+                "comp_specs.gpu": req.body.gpu,
+                "comp_specs.harddrive": req.body.harddrive,
+                "comp_specs.keyboard": req.body.keyboard,
+                "comp_specs.mouse": req.body.mouse } },
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("comp specs is updated");
             res.json(user);
         });
 });
