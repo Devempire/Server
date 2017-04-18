@@ -357,8 +357,9 @@ router.put("/profile/deleteAvatar",function(req,res,next){
 
 //update data for notepad for user
 router.put('/profile/dataupload',function(req,res,next){
+  var ref = 'data.'+req.body.ref;
      User.update( { _id:req.body._id},
-      {"data": [{ "id": [{"ids": req.body.ref}, {"dat": req.body.data}]}]},
+      { $set: {[ref]: req.body.data}},
        function (err, user) {
          if (err) return next(err);
 
