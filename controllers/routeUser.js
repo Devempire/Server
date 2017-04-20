@@ -189,6 +189,7 @@ router.get('/profile/:id/info',function(req,res,next){
             aboutme:user.aboutme,
             layout:user.layout,
             data:user.data,
+            status:user.status,
             is_verified:user.is_verified,
             privacy: user.privacy,
             comp_specs: user.comp_specs
