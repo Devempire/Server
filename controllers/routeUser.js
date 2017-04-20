@@ -17,11 +17,11 @@ nev.configure({
   verificationURL: 'http://gamempire.net/login/email-verification/${URL}',
   transportOptions: {
 
-        host: 'XXX',
-        port: XXX,
+        host: 'xxx',
+        port: xxx,
         auth: {
-            user:'XXX',
-            pass: 'XXX'
+            user:'xxx',
+            pass: 'xxx'
         },
         secure: true,
         tls: {
@@ -461,5 +461,18 @@ router.put('/profile/saveCompSpecs', function(req,res,next) {
             res.json(user);
         });
 });
+
+router.put('/changestatus', function(req,res,next) {
+    User.update( { _id:req.body._id},
+        {status:req.body.status},
+        function (err, user) {
+            if (err) return next(err);
+
+            console.log("status is updated");
+            res.json(user);
+        });
+});
+
+
 
 module.exports = router;

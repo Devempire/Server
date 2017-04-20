@@ -16,6 +16,7 @@ var UserSchema = mongoose.Schema({
     dateofbirth: {type: String, default:''},
     widgets:[{widgetid: String}],
     data:Object,
+    status:{type: String, default:"offline"},
     mic: {type: Boolean, default: false}, //default no mic
     layout:{type:Object, default:{}},
     privacy: {type: Object, default: {firstname:true, lastname:true, username:false, avatar:false, email:true, aboutme:false, dateofbirth:true, compspecs:false}},
