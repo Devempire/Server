@@ -50,7 +50,7 @@ router.post('/info',function(req,res,next){
     User.find({'username':req.body.username}, function(err, user){
     if (err) return next(err);
     if (user[0] == null){
-      res.send({msg:"no result found !"});
+      res.send({msg:"No results found."});
     }else{
     res.send({_id:user[0]._id,
               user:user[0].username});
