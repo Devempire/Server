@@ -53,7 +53,9 @@ router.post('/info',function(req,res,next){
       res.send({msg:"No results found."});
     }else{
     res.send({_id:user[0]._id,
-              user:user[0].username});
+              user:user[0].username,
+			  avatar:user[0].avatar
+			});
     }
     });
 });
