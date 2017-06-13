@@ -453,8 +453,8 @@ router.put('/profile/saveCompSpecs', function(req,res,next) {
         { $set: { "comp_specs.cpu": req.body.cpu,
                 "comp_specs.gpu": req.body.gpu,
                 "comp_specs.harddrive": req.body.harddrive,
-                "comp_specs.keyboard": req.body.keyboard,
-                "comp_specs.mouse": req.body.mouse } },
+                "comp_specs.ram": req.body.ram,
+                "comp_specs.monitor": req.body.monitor } },
         function (err, user) {
             if (err) return next(err);
 
@@ -473,7 +473,5 @@ router.put('/changestatus', function(req,res,next) {
             res.json(user);
         });
 });
-
-
 
 module.exports = router;
