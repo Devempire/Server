@@ -472,15 +472,14 @@ router.put('/changestatus', function(req,res,next) {
             console.log("status is updated");
             res.json(user);
 
-            setTimeout(function(){ 
-
+            setTimeout(function(){
                 User.update( { _id:req.body._id},
                     {status:"offline"},
                     function (err, user) {
                         if (err) return next(err);
                         console.log("status is updated");
-                        }, 30000); //30s for testing.
-        });
+                      })
+        }, 30000); //30s for testing.);
         });
 });
 
