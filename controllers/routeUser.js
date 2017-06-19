@@ -18,7 +18,7 @@ nev.configure({
   transportOptions: {
 
         host: 'xxx',
-        port: xxx,
+        port: 666,
         auth: {
             user:'xxx',
             pass: 'xxx'
@@ -131,6 +131,34 @@ router.post('/find', function (req, res, next) {
 
             res.send(token);
             res.end("Information found");
+
+//SERVER LOOP triggered on login
+
+            function check() {
+
+              User.find({'username':req.body.username}, function (err, user){
+              if (err) return next(err);
+              if (user[0].status.status == "online"){
+                if ((user[0].status.timestamp+25000) >= Date.now()){
+                }else{
+                  console.log("Setting user offline")
+                  User.update({'username':req.body.username},{$set : {"status.timestamp": Date.now(), "status.status":"offline"}},
+                  function (err, user) {
+                    if (err) return next(err);
+
+                    console.log(user);
+                }
+                );
+
+                }
+              }
+            });
+              setTimeout(check, 10000);
+            }
+            check();
+
+//SERVER LOOP END
+
         }else{
           res.status(400);
             return next(new Error("Incorrect information"));
@@ -463,24 +491,16 @@ router.put('/profile/saveCompSpecs', function(req,res,next) {
         });
 });
 
-router.put('/changestatus', function(req,res,next) {
+router.put('/pingstatus', function(req,res,next) {
     User.update( { _id:req.body._id},
-        {status:req.body.status},
+        {$set : {"status.timestamp": Date.now(), "status.status":req.body.status}},
         function (err, user) {
             if (err) return next(err);
 
-            console.log("status is updated");
+            console.log("status is updated"+Date.now());
             res.json(user);
 
-            setTimeout(function(){ 
 
-                User.update( { _id:req.body._id},
-                    {status:"offline"},
-                    function (err, user) {
-                        if (err) return next(err);
-                        console.log("status is updated");
-                        }, 30000); //30s for testing.
-        });
         });
 });
 
