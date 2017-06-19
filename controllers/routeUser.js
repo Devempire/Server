@@ -499,8 +499,6 @@ router.put('/pingstatus', function(req,res,next) {
 
             console.log("status is updated"+Date.now());
             res.json(user);
-
-
         });
 });
 
