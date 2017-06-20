@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var WidgetSchema = mongoose.Schema({
     widgetname:{type:String,unique:true},
-    widgettype:String,
+    widgettype:Object,
     w:Number,
     h:Number,
     x:Number,

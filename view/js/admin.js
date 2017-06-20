@@ -1,8 +1,9 @@
 $("#add").click(function(){
+
     $.post( "/widget/add",
                 {
                     "widgetname": $( "#widget" ).val(),
-                    "widgettype": $( "#type" ).val(),
+                    "widgettype": JSON.stringify($( "#type" ).val()),
                     "w":$("#iw").val(),
                     "h":$("#ih").val(),
                     "x":$("#x").val(),
@@ -16,7 +17,24 @@ $("#add").click(function(){
                 }
         )
         .done(function(data) {
+            console.log(JSON.stringify($( "#type" ).val()));
 		  console.log("Successfully register!");
+
+        }).fail(function(res){
+            console.log("something wrong");
+        });
+    });
+
+$("#addC").click(function(){
+    $.post( "/widget/addC",
+                {
+                    "name": $("#Cname").val(),
+                    "detail":$("#detail").val()
+                }
+        )
+        .done(function(data) {
+          console.log("Successfully register!");
+          
         }).fail(function(res){
             console.log("something wrong");
         });
@@ -39,10 +57,22 @@ $("#delete").click(function(){
 window.onload = function() {
   $.get("/widget/show").done(function(res){
     for (var i = 0; i < res.length; i++) {
-       $('select').append($('<option>', {value:res[i]._id, text:res[i].widgetname}));
+       $('#load').append($('<option>', {value:res[i]._id, text:res[i].widgetname}));
     }
     
   }).fail(function(err){
     console.log("something wrong with the load widget");
   });
+
+   $.get("/widget/showCategory").done(function(res){
+    for (var i = 0; i < res.length; i++) {
+       $('#type').append($('<option>', {value:res[i]._id, text:res[i].Name}));
+    }
+    
+  }).fail(function(err){
+    console.log("something wrong with the load Category");
+  });
+
+   
+
 };

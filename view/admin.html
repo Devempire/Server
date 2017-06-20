@@ -6,12 +6,15 @@
 <body>
 
 <h1>This is only for develop</h1>
-<p>widget db system </p>
+<p>widget db and category system</p>
 <h3>adding new widget </h3>
 <label> widget name :</label><br/>
 <input type="text" id="widget" placeholder="widgetname" /><br/>
-<label>type:(game/music/video/social/other)</label><br/>
-<input type="text" id="type" placeholder="game/music/video/social/other" /><br/>
+<label>type:(game/music/video/social/etc..)</label><br/>
+<select id = "type" multiple = "multiple">
+	
+  </select>
+<br/>
 <label>initial width:</label><br/>
 <input type="number" id="iw" placeholder="0" /><br/>
 <label>initial height:</label><br/>
@@ -34,13 +37,19 @@
 <input type="text" id="drag" placeholder="true/false" /><br/>
 <button type="sumbit" id="add">Submit</button>
 
+<h3>adding new category </h3>
+<label> category name :</label><br/>
+<input id="Cname" type="text" placeholder="category name"><br />
+<label> category detail:</label><br/>
+<input type="text" id="detail" placeholder="wrtite the description"> <br/>
+<button type="sumbit" id="addC">Submit</button>
 
 <h3> remove widget</h3>
 <select id="load">
   <option value="" selected disabled>please select one of following widgets to delete</option>
 </select>
 <button type="sumbit" id="delete">Submit</button>
-
+<p id="show"> <p>
 </body>
 
 <!-- JQuery -->
