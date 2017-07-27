@@ -312,7 +312,7 @@ router.post('/profile/checkold', function (req, res, next) {
  // user add games
  router.put('/profile/addwidget',function(req,res,next){
      User.update( { _id:req.body._id},
-       {$push:{ widgets : {widgetid:req.body.widgetid}}}, function (err, user) {
+       {$push:{ widgets : {widgetid:req.body.widgetid, hidden:false}}}, function (err, user) {
          if (err) return next(err);
 
          console.log("Widget added!");
@@ -330,6 +330,17 @@ router.post('/profile/checkold', function (req, res, next) {
  //         res.json(user);
  //     });
  // });
+
+router.put('/profile/updatewidget',function(req,res,next){
+    User.update( { _id:req.body._id, "widgets.widgetid":req.body.widgetid },
+        { $set: { "widgets.$.hidden": req.body.hidden } },
+      function (err, user) {
+        if (err) return next(err);
+
+        console.log("widget visibility is updated");
+        res.json(user);
+      });
+});
 
  // remove user games with gamename
  router.put('/profile/removewidget',function(req,res,next){
